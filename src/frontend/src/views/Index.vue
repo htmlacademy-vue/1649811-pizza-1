@@ -16,7 +16,7 @@
               >
                 <input
                   type="radio"
-                  name="dought"
+                  name="dough"
                   value="light"
                   class="visually-hidden"
                   :checked="index === 0"
@@ -33,12 +33,17 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
 
             <div class="sheet__content diameter">
-              <label v-for="size in sizes" :key="size.id" :class="size.class">
+              <label
+                v-for="(size, index) in sizes"
+                :key="size.id"
+                :class="size.class"
+              >
                 <input
                   type="radio"
                   name="diameter"
                   value="small"
                   class="visually-hidden"
+                  :checked="index === 1"
                 />
                 <span>{{ size.name }}</span>
               </label>
