@@ -27,7 +27,7 @@ import { INGREDIENT_MAX_COUNT, INGREDIENT_MIN_COUNT } from "../constants";
 export default {
   name: "ItemCounter",
   props: {
-    ingredientId: {
+    itemId: {
       type: Number,
       required: true,
     },
@@ -47,10 +47,10 @@ export default {
 
   methods: {
     increment() {
-      this.$emit("setCount", this.ingredientId, this.count + 1);
+      this.$emit("setCount", this.itemId, this.count + 1);
     },
     decrement() {
-      this.$emit("setCount", this.ingredientId, this.count - 1);
+      this.$emit("setCount", this.itemId, this.count - 1);
     },
   },
 };

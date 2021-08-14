@@ -4,23 +4,7 @@
       <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
 
       <div class="sheet__content ingredients">
-        <div class="ingredients__sauce">
-          <p>Основной соус:</p>
-
-          <label
-            v-for="sauce in sauces"
-            :key="sauce.id"
-            class="radio ingredients__input"
-          >
-            <RadioButton
-              name="sauce"
-              :value="sauce.name"
-              :checked="sauce.id === currentSauce.id"
-              @handleChoice="setSauce"
-            />
-            <span>{{ sauce.name }}</span>
-          </label>
-        </div>
+        <slot />
 
         <div class="ingredients__filling">
           <p>Начинка:</p>
@@ -41,7 +25,7 @@
               </AppDrag>
 
               <ItemCounter
-                :ingredientId="ingredient.id"
+                :item-id="ingredient.id"
                 :count="ingredient.count"
                 @setCount="setCount"
               />
@@ -54,39 +38,23 @@
 </template>
 
 <script>
-import RadioButton from "../../../common/components/RadioButton";
 import ItemCounter from "../../../common/components/ItemCounter";
 import AppDrag from "../../../common/components/AppDrag";
 import { INGREDIENT_MAX_COUNT } from "../../../common/constants";
 
 export default {
   name: "BuilderIngredientsSelector",
-  components: { RadioButton, ItemCounter, AppDrag },
+  components: { ItemCounter, AppDrag },
   props: {
-    sauces: {
-      type: Array,
-      required: true,
-    },
     ingredients: {
       type: Array,
-      required: true,
-    },
-    currentSauce: {
-      type: Object,
       required: true,
     },
   },
 
   methods: {
-    setSauce(sauceName) {
-      const sauce = this.sauces.find((item) => item.name === sauceName);
-      this.$emit("setSauce", sauce);
-    },
     setCount(ingredientId, count) {
-      const ingredient = this.ingredients.find(
-        (item) => item.id === ingredientId
-      );
-      ingredient.count = count;
+      this.$emit("setIngredient", ingredientId, count);
     },
     isDraggable(ingredient) {
       return ingredient.count < INGREDIENT_MAX_COUNT;
@@ -104,23 +72,6 @@ export default {
   margin-top: 15px;
   margin-right: auto;
   margin-bottom: 15px;
-}
-
-.ingredients__sauce {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-
-  width: 100%;
-  margin-bottom: 14px;
-
-  p {
-    @include r-s16-h19;
-
-    margin-top: 0;
-    margin-right: 16px;
-    margin-bottom: 10px;
-  }
 }
 
 .ingredients__input {

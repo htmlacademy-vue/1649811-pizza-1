@@ -18,10 +18,14 @@
 
         <BuilderIngredientsSelector
           :ingredients="ingredients"
-          :sauces="sauces"
-          :current-sauce="sauce"
-          @setSauce="setSauce"
-        />
+          @setIngredient="setIngredient"
+        >
+          <BuilderSauceSelector
+            :current-sauce="sauce"
+            :sauces="sauces"
+            @setSauce="setSauce"
+          />
+        </BuilderIngredientsSelector>
 
         <BuilderPizzaView
           :pizza="pizza"
@@ -41,6 +45,7 @@ import BuilderSizeSelector from "../modules/builder/components/BuilderSizeSelect
 import BuilderIngredientsSelector from "../modules/builder/components/BuilderIngredientsSelector";
 import BuilderPizzaView from "../modules/builder/components/BuilderPizzaView";
 import BuilderPriceCounter from "../modules/builder/components/BuilderPriceCounter";
+import BuilderSauceSelector from "../modules/builder/components/BuilderSauceSelector";
 
 export default {
   props: {
@@ -79,6 +84,7 @@ export default {
     BuilderDoughSelector,
     BuilderSizeSelector,
     BuilderIngredientsSelector,
+    BuilderSauceSelector,
     BuilderPizzaView,
     BuilderPriceCounter,
   },
@@ -103,6 +109,12 @@ export default {
         (item) => item.id === ingredient.id
       );
       dragIngredient.count++;
+    },
+    setIngredient(ingredientId, count) {
+      const changedIngredient = this.ingredients.find(
+        (item) => item.id === ingredientId
+      );
+      changedIngredient.count = count;
     },
   },
   computed: {
