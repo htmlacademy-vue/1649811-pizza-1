@@ -13,6 +13,7 @@
 </template>
 <script>
 export default {
+  name: "BuilderPriceCounter",
   props: {
     pizza: {
       type: Object,

@@ -10,6 +10,7 @@
 </template>
 <script>
 export default {
+  name: "RadioButton",
   props: {
     name: {
       type: String,

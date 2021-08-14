@@ -24,6 +24,7 @@
 import RadioButton from "../../../common/components/RadioButton";
 
 export default {
+  name: "BuilderDoughSelector",
   props: {
     doughs: {
       type: Array,

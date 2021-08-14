@@ -34,6 +34,7 @@ const PIZZA_FILLING_SECOND = "pizza__filling--second";
 const PIZZA_FILLING_THIRD = "pizza__filling--third";
 
 export default {
+  name: "BuilderPizzaView",
   props: {
     pizza: {
       type: Object,

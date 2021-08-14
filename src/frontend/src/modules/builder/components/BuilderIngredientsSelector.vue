@@ -53,6 +53,7 @@ import RadioButton from "../../../common/components/RadioButton";
 import ItemCounter from "../../../common/components/ItemCounter";
 
 export default {
+  name: "BuilderIngredientsSelector",
   components: { RadioButton, ItemCounter },
   props: {
     sauces: {

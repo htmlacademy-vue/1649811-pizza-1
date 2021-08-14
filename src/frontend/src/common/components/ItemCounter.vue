@@ -25,6 +25,7 @@
 import { INGREDIENT_MAX_COUNT, INGREDIENT_MIN_COUNT } from "../constants";
 
 export default {
+  name: "ItemCounter",
   props: {
     ingredientId: {
       type: Number,
