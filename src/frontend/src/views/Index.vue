@@ -24,23 +24,11 @@
         />
 
         <BuilderPizzaView
-          :dough="dough"
-          :sauce="sauce"
-          :size="size"
-          :ingredients="addedIngredients"
-          :name="name"
           :pizza="pizza"
           @setName="setName"
+          :drop="addIngredient"
         >
-          <template #result>
-            <BuilderPriceCounter
-              :ingredients="addedIngredients"
-              :multiplier="size.multiplier"
-              :name="name"
-              :pizza="pizza"
-              @setPrice="setPrice"
-            />
-          </template>
+          <BuilderPriceCounter :pizza="pizza" @setPrice="setPrice" />
         </BuilderPizzaView>
       </div>
     </form>
@@ -48,13 +36,6 @@
 </template>
 
 <script>
-import pizza from "@/static/pizza.json";
-import {
-  normalizeDough,
-  normalizeSize,
-  normalizeIngredient,
-} from "@/common/helpers";
-
 import BuilderDoughSelector from "../modules/builder/components/BuilderDoughSelector";
 import BuilderSizeSelector from "../modules/builder/components/BuilderSizeSelector";
 import BuilderIngredientsSelector from "../modules/builder/components/BuilderIngredientsSelector";
@@ -62,13 +43,26 @@ import BuilderPizzaView from "../modules/builder/components/BuilderPizzaView";
 import BuilderPriceCounter from "../modules/builder/components/BuilderPriceCounter";
 
 export default {
+  props: {
+    doughs: {
+      type: Array,
+      required: true,
+    },
+    sizes: {
+      type: Array,
+      required: true,
+    },
+    sauces: {
+      type: Array,
+      required: true,
+    },
+    ingredients: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      doughs: pizza.dough.map((item) => normalizeDough(item)),
-      sizes: pizza.sizes.map((item) => normalizeSize(item)),
-      sauces: pizza.sauces,
-      ingredients: pizza.ingredients.map((item) => normalizeIngredient(item)),
-
       dough: {},
       sauce: {},
       size: {},
@@ -103,6 +97,12 @@ export default {
     },
     setName(name) {
       this.name = name;
+    },
+    addIngredient(ingredient) {
+      const dragIngredient = this.ingredients.find(
+        (item) => item.id === ingredient.id
+      );
+      dragIngredient.count++;
     },
   },
   computed: {

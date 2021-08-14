@@ -31,9 +31,14 @@
               :key="ingredient.id"
               class="ingredients__item"
             >
-              <span :class="['filling', ingredient.class]">
-                {{ ingredient.name }}
-              </span>
+              <AppDrag
+                :transfer-data="ingredient"
+                :draggable="isDraggable(ingredient)"
+              >
+                <span :class="['filling', ingredient.class]">
+                  {{ ingredient.name }}
+                </span>
+              </AppDrag>
 
               <ItemCounter
                 :ingredientId="ingredient.id"
@@ -51,10 +56,12 @@
 <script>
 import RadioButton from "../../../common/components/RadioButton";
 import ItemCounter from "../../../common/components/ItemCounter";
+import AppDrag from "../../../common/components/AppDrag";
+import { INGREDIENT_MAX_COUNT } from "../../../common/constants";
 
 export default {
   name: "BuilderIngredientsSelector",
-  components: { RadioButton, ItemCounter },
+  components: { RadioButton, ItemCounter, AppDrag },
   props: {
     sauces: {
       type: Array,
@@ -80,6 +87,9 @@ export default {
         (item) => item.id === ingredientId
       );
       ingredient.count = count;
+    },
+    isDraggable(ingredient) {
+      return ingredient.count < INGREDIENT_MAX_COUNT;
     },
   },
 };

@@ -12,32 +12,41 @@
     </label>
 
     <div class="content__constructor">
-      <div class="pizza" :class="pizzaFoundationClass">
-        <div class="pizza__wrapper">
-          <div
-            v-for="ingredient in pizza.ingredients"
-            class="pizza__filling"
-            :key="ingredient.id"
-            :class="getFillingClass(ingredient)"
-          />
+      <AppDrop @drop="drop">
+        <div class="pizza" :class="pizzaFoundationClass">
+          <div class="pizza__wrapper">
+            <div
+              v-for="ingredient in pizza.ingredients"
+              class="pizza__filling"
+              :key="ingredient.id"
+              :class="getFillingClass(ingredient)"
+            />
+          </div>
         </div>
-      </div>
+      </AppDrop>
     </div>
 
-    <slot name="result" />
+    <slot />
   </div>
 </template>
 
 <script>
+import AppDrop from "../../../common/components/AppDrop";
+
 const CLASS_FOUNDATION_PREFIX = "pizza--foundation";
 const PIZZA_FILLING_SECOND = "pizza__filling--second";
 const PIZZA_FILLING_THIRD = "pizza__filling--third";
 
 export default {
   name: "BuilderPizzaView",
+  components: { AppDrop },
   props: {
     pizza: {
       type: Object,
+      required: true,
+    },
+    drop: {
+      type: Function,
       required: true,
     },
   },
