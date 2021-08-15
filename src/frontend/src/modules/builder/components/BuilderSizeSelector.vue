@@ -7,8 +7,8 @@
         <label v-for="size in sizes" :key="size.id" :class="size.class">
           <RadioButton
             name="diameter"
+            class="visually-hidden"
             :value="size.name"
-            :class-name="'visually-hidden'"
             :checked="currentSize.id === size.id"
             @handleChoice="setSize"
           />

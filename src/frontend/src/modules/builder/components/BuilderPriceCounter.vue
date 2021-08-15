@@ -1,6 +1,6 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ price }} ₽</p>
+    <p>Итого: {{ pizza.price }} ₽</p>
     <button
       type="button"
       class="button"
@@ -23,17 +23,6 @@ export default {
   computed: {
     isDisabled() {
       return !this.pizza.name.length || !this.pizza.price;
-    },
-    price() {
-      const sum = this.pizza.ingredients.reduce(
-        (acc, item) => acc + item.count * item.price,
-        0
-      );
-
-      const result = sum * this.pizza.size.multiplier;
-      this.$emit("setPrice", result);
-
-      return result;
     },
   },
 };

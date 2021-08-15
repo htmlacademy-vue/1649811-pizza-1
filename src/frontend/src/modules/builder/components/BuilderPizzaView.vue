@@ -1,18 +1,9 @@
 <template>
   <div class="content__pizza">
-    <label class="input">
-      <span class="visually-hidden">Название пиццы</span>
-      <input
-        type="text"
-        name="pizza_name"
-        placeholder="Введите название пиццы"
-        :value="pizza.name"
-        @input="setName"
-      />
-    </label>
+    <slot name="pizzaName" />
 
     <div class="content__constructor">
-      <AppDrop @drop="drop">
+      <AppDrop @drop="addIngredient">
         <div class="pizza" :class="pizzaFoundationClass">
           <div class="pizza__wrapper">
             <div
@@ -26,7 +17,7 @@
       </AppDrop>
     </div>
 
-    <slot />
+    <slot name="pizzaPrice" />
   </div>
 </template>
 
@@ -45,16 +36,11 @@ export default {
       type: Object,
       required: true,
     },
-    drop: {
-      type: Function,
-      required: true,
-    },
   },
 
   methods: {
-    setName(event) {
-      const name = event.target.value;
-      this.$emit("setName", name);
+    addIngredient(ingredient) {
+      this.$emit("addIngredient", ingredient);
     },
 
     getFillingClass(ingredient) {

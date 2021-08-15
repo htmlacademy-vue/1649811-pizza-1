@@ -3,7 +3,6 @@
     type="radio"
     :name="name"
     :value="value"
-    :class="className"
     :checked="checked"
     @change="handleChoice"
   />
@@ -19,10 +18,6 @@ export default {
     value: {
       type: String,
       required: true,
-    },
-    className: {
-      type: String,
-      default: "",
     },
     checked: {
       type: Boolean,

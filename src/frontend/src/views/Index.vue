@@ -27,12 +27,14 @@
           />
         </BuilderIngredientsSelector>
 
-        <BuilderPizzaView
-          :pizza="pizza"
-          @setName="setName"
-          :drop="addIngredient"
-        >
-          <BuilderPriceCounter :pizza="pizza" @setPrice="setPrice" />
+        <BuilderPizzaView :pizza="pizza" @addIngredient="addIngredient">
+          <template #pizzaName>
+            <BuilderPizzaName :name="pizza.name" @setName="setName" />
+          </template>
+
+          <template #pizzaPrice>
+            <BuilderPriceCounter :pizza="pizza" />
+          </template>
         </BuilderPizzaView>
       </div>
     </form>
@@ -46,6 +48,8 @@ import BuilderIngredientsSelector from "../modules/builder/components/BuilderIng
 import BuilderPizzaView from "../modules/builder/components/BuilderPizzaView";
 import BuilderPriceCounter from "../modules/builder/components/BuilderPriceCounter";
 import BuilderSauceSelector from "../modules/builder/components/BuilderSauceSelector";
+import BuilderPizzaName from "../modules/builder/components/BuilderPizzaName";
+import { calculatePrice } from "../common/utils/pizza";
 
 export default {
   props: {
@@ -71,7 +75,6 @@ export default {
       dough: {},
       sauce: {},
       size: {},
-      price: 0,
       name: "",
     };
   },
@@ -87,6 +90,7 @@ export default {
     BuilderSauceSelector,
     BuilderPizzaView,
     BuilderPriceCounter,
+    BuilderPizzaName,
   },
   methods: {
     setDough(dough) {
@@ -97,9 +101,6 @@ export default {
     },
     setSize(size) {
       this.size = size;
-    },
-    setPrice(price) {
-      this.price = price;
     },
     setName(name) {
       this.name = name;
@@ -118,17 +119,20 @@ export default {
     },
   },
   computed: {
-    addedIngredients() {
-      return this.ingredients.filter((item) => item.count > 0);
-    },
     pizza() {
+      const ingredients = this.ingredients.filter((item) => item.count > 0);
       return {
         name: this.name,
         dough: this.dough,
         sauce: this.sauce,
         size: this.size,
-        ingredients: this.addedIngredients,
-        price: this.price,
+        ingredients,
+        price: calculatePrice(
+          this.dough.price,
+          this.sauce.price,
+          this.size.multiplier,
+          ingredients
+        ),
       };
     },
   },

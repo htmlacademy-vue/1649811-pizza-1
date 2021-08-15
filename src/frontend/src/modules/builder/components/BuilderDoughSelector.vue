@@ -6,9 +6,9 @@
       <div class="sheet__content dough">
         <label v-for="dough in doughs" :class="dough.class" :key="dough.id">
           <RadioButton
-            :value="dough.name"
             name="dough"
-            :class-name="'visually-hidden'"
+            class="visually-hidden"
+            :value="dough.name"
             :checked="dough.id === currentDough.id"
             @handleChoice="setDough"
           />

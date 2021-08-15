@@ -16,7 +16,7 @@ import {
   normalizeDough,
   normalizeIngredient,
   normalizeSize,
-} from "./common/helpers";
+} from "./common/utils/helpers";
 
 export default {
   name: "App",
