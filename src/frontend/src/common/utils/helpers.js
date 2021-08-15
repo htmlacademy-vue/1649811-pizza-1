@@ -2,6 +2,7 @@ export const normalizeIngredient = (ingredient) => {
   const imageName = getIngredientImageName(ingredient);
   return {
     ...ingredient,
+    count: 0,
     class: `filling--${imageName}`,
   };
 };
