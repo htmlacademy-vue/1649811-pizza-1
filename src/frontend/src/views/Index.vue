@@ -38,6 +38,7 @@
         </BuilderPizzaView>
       </div>
     </form>
+    <router-view />
   </main>
 </template>
 
@@ -119,19 +120,21 @@ export default {
     },
   },
   computed: {
+    addedIngredients() {
+      return this.ingredients.filter((item) => item.count > 0);
+    },
     pizza() {
-      const ingredients = this.ingredients.filter((item) => item.count > 0);
       return {
         name: this.name,
         dough: this.dough,
         sauce: this.sauce,
         size: this.size,
-        ingredients,
+        ingredients: this.addedIngredients,
         price: calculatePrice(
           this.dough.price,
           this.sauce.price,
           this.size.multiplier,
-          ingredients
+          this.addedIngredients
         ),
       };
     },

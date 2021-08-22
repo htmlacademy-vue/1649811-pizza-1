@@ -1,12 +1,8 @@
 <template>
   <div>
-    <AppLayoutHeader></AppLayoutHeader>
-    <Index
-      :doughs="doughs"
-      :sizes="sizes"
-      :sauces="sauces"
-      :ingredients="ingredients"
-    ></Index>
+    <component :is="layout" :login-path="loginPath">
+      <slot />
+    </component>
   </div>
 </template>
 
@@ -14,23 +10,19 @@
 import AppLayoutHeader from "./AppLayoutHeader";
 import Index from "../views/Index";
 
+const defaultLayout = "AppLayoutDefault";
+
 export default {
   props: {
-    doughs: {
-      type: Array,
+    loginPath: {
+      type: String,
       required: true,
     },
-    sizes: {
-      type: Array,
-      required: true,
-    },
-    sauces: {
-      type: Array,
-      required: true,
-    },
-    ingredients: {
-      type: Array,
-      required: true,
+  },
+  computed: {
+    layout() {
+      const layout = this.$route.meta.layout || defaultLayout;
+      return () => import(`./${layout}.vue`);
     },
   },
   components: {

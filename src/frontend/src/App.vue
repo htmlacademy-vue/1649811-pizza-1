@@ -1,11 +1,13 @@
 <template>
   <div id="app">
-    <AppLayout
-      :doughs="doughs"
-      :sizes="sizes"
-      :sauces="sauces"
-      :ingredients="ingredients"
-    ></AppLayout>
+    <AppLayout :login-path="loginPath">
+      <router-view
+        :doughs="routeProps.doughs"
+        :sizes="routeProps.sizes"
+        :sauces="routeProps.sauces"
+        :ingredients="routeProps.ingredients"
+      />
+    </AppLayout>
   </div>
 </template>
 
@@ -30,6 +32,28 @@ export default {
   },
   components: {
     AppLayout,
+  },
+  methods: {
+    getRouteProps() {
+      return {
+        doughs: this.doughs,
+        sizes: this.sizes,
+        sauces: this.sauces,
+        ingredients: this.ingredients,
+      };
+    },
+  },
+  computed: {
+    loginPath() {
+      return this.$route.path === "/" ? "/login-index" : "/login";
+    },
+    routeProps() {
+      const routes = {
+        IndexHome: this.getRouteProps(),
+        LoginIndex: this.getRouteProps(),
+      };
+      return routes[this.$route.name] || {};
+    },
   },
 };
 </script>
