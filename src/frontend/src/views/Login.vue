@@ -1,6 +1,6 @@
 <template>
   <div class="sign-form">
-    <router-link to="/" tag="a" class="close close--white">
+    <router-link to="/" class="close close--white">
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </router-link>
     <div class="sign-form__title">
