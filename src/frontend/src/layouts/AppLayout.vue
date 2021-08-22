@@ -8,7 +8,6 @@
 
 <script>
 import AppLayoutHeader from "./AppLayoutHeader";
-import Index from "../views/Index";
 
 const defaultLayout = "AppLayoutDefault";
 
@@ -27,7 +26,6 @@ export default {
   },
   components: {
     AppLayoutHeader,
-    Index,
   },
 };
 </script>
