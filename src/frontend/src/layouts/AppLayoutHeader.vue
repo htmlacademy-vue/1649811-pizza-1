@@ -1,22 +1,35 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <a href="#" class="logo">
+      <router-link to="/" class="logo">
         <img
           class="header__logo__image"
           src="@/assets/img/logo.svg"
           alt="V!U!E! Pizza logo"
         />
-      </a>
+      </router-link>
     </div>
     <div class="header__cart">
-      <a href="#">0 ₽</a>
+      <router-link to="/cart">0 ₽</router-link>
     </div>
     <div class="header__user">
-      <a href="#" class="header__login"><span>Войти</span></a>
+      <router-link :to="loginPath" class="header__login">
+        <span>Войти</span>
+      </router-link>
     </div>
   </header>
 </template>
+
+<script>
+export default {
+  props: {
+    loginPath: {
+      type: String,
+      required: true,
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import "~@/assets/scss/mixins/logo";

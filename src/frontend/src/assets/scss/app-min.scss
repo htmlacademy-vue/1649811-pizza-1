@@ -12,10 +12,10 @@
 @import "layout/content.scss";
 @import "layout/sheet.scss";
 @import "layout/container.scss";
-//@import "layout/layout.scss";
+@import "layout/layout.scss";
 //@import "layout/popup.scss";
 @import "layout/layout-form.scss";
-@import "layout/sign-form.scss";
+//@import "layout/sign-form.scss";
 
 // blocks
 @import "blocks/icon.scss";
@@ -33,7 +33,7 @@
 @import "blocks/diameter.scss";
 //@import "blocks/ingredients.scss";
 //@import "blocks/cart-list.scss";
-//@import "blocks/cart.scss";
+@import "blocks/cart.scss";
 //@import "blocks/product.scss";
 //@import "blocks/additional-list.scss";
 //@import "blocks/cart-form.scss";

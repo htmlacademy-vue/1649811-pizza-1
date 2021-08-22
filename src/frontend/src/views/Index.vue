@@ -38,6 +38,7 @@
         </BuilderPizzaView>
       </div>
     </form>
+    <router-view />
   </main>
 </template>
 
