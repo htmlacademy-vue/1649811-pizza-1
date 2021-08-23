@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component :is="layout" :login-path="loginPath">
+    <component :is="layout">
       <slot />
     </component>
   </div>
@@ -12,12 +12,6 @@ import AppLayoutHeader from "./AppLayoutHeader";
 const defaultLayout = "AppLayoutDefault";
 
 export default {
-  props: {
-    loginPath: {
-      type: String,
-      required: true,
-    },
-  },
   computed: {
     layout() {
       const layout = this.$route.meta.layout || defaultLayout;

@@ -3,3 +3,12 @@ export const INGREDIENT_MAX_COUNT = 3;
 
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
+
+export const AppRoute = {
+  LOGIN: "/login",
+  LOGIN_INDEX: "login-index",
+  MAIN: `/`,
+  PROFILE: "/profile",
+  CART: "/cart",
+  ORDERS: "/orders",
+};

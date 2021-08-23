@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <AppLayout :login-path="loginPath">
+    <AppLayout>
       <router-view
         :doughs="routeProps.doughs"
         :sizes="routeProps.sizes"
@@ -44,9 +44,6 @@ export default {
     },
   },
   computed: {
-    loginPath() {
-      return this.$route.path === "/" ? "/login-index" : "/login";
-    },
     routeProps() {
       const routes = {
         IndexHome: this.getRouteProps(),

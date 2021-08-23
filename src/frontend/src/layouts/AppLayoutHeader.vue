@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <router-link to="/" class="logo">
+      <router-link :to="AppRoute.MAIN" class="logo">
         <img
           class="header__logo__image"
           src="@/assets/img/logo.svg"
@@ -10,7 +10,7 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link to="/cart">0 ₽</router-link>
+      <router-link :to="AppRoute.CART">0 ₽</router-link>
     </div>
     <div class="header__user">
       <router-link :to="loginPath" class="header__login">
@@ -21,11 +21,17 @@
 </template>
 
 <script>
+import { AppRoute } from "../common/constants";
+
 export default {
-  props: {
-    loginPath: {
-      type: String,
-      required: true,
+  data() {
+    return {
+      AppRoute,
+    };
+  },
+  computed: {
+    loginPath() {
+      return this.$route.path === "/" ? AppRoute.LOGIN_INDEX : AppRoute.LOGIN;
     },
   },
 };
