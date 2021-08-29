@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AppLayoutHeader :login-path="loginPath" />
+    <AppLayoutHeader />
     <slot />
   </div>
 </template>
@@ -8,12 +8,6 @@
 import AppLayoutHeader from "./AppLayoutHeader";
 
 export default {
-  props: {
-    loginPath: {
-      type: String,
-      required: true,
-    },
-  },
   components: { AppLayoutHeader },
 };
 </script>

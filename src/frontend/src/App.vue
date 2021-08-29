@@ -30,6 +30,9 @@ export default {
       ingredients: pizza.ingredients.map((item) => normalizeIngredient(item)),
     };
   },
+  created() {
+    this.$store.dispatch("init");
+  },
   components: {
     AppLayout,
   },
