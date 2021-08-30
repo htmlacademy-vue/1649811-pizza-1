@@ -11,11 +11,10 @@ export default {
   sauces,
   sizes: sizes.map((item) => normalizeSize(item)),
   ingredientsPrice: 0,
-  pizza: {
-    dough: dough[0],
-    ingredients: [],
-    sauce: sauces[0],
-    size: sizes[0],
-    price: 0,
-  },
+  addedIngredients: [],
+  currentDough: dough[0],
+  currentSauce: sauces[0],
+  currentSize: sizes[0],
+  pizzaName: "",
+  price: 0,
 };

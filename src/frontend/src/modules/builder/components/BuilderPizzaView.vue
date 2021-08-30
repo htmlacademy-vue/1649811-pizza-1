@@ -23,6 +23,7 @@
 
 <script>
 import AppDrop from "../../../common/components/AppDrop";
+import { mapGetters, mapActions } from "vuex";
 
 const CLASS_FOUNDATION_PREFIX = "pizza--foundation";
 const PIZZA_FILLING_SECOND = "pizza__filling--second";
@@ -31,16 +32,14 @@ const PIZZA_FILLING_THIRD = "pizza__filling--third";
 export default {
   name: "BuilderPizzaView",
   components: { AppDrop },
-  props: {
-    pizza: {
-      type: Object,
-      required: true,
-    },
-  },
-
   methods: {
+    ...mapActions("builder", {
+      setIngredient: "setIngredient",
+    }),
     addIngredient(ingredient) {
-      this.$emit("addIngredient", ingredient);
+      const ingredientId = ingredient.id;
+      const count = ingredient.count + 1;
+      this.setIngredient({ ingredientId, count });
     },
 
     getFillingClass(ingredient) {
@@ -56,8 +55,10 @@ export default {
       }
     },
   },
-
   computed: {
+    ...mapGetters("builder", {
+      pizza: "pizza",
+    }),
     pizzaFoundationClass: function () {
       const {
         dough: { name: doughName },

@@ -9,7 +9,7 @@
             name="diameter"
             class="visually-hidden"
             :value="size.name"
-            :checked="currentSize.id === size.id"
+            :checked="size.id === pizza.size.id"
             @handleChoice="setSize"
           />
           <span>{{ size.name }}</span>
@@ -21,24 +21,23 @@
 
 <script>
 import RadioButton from "../../../common/components/RadioButton";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "BuilderSizeSelector",
   components: { RadioButton },
-  props: {
-    sizes: {
-      type: Array,
-      required: true,
-    },
-    currentSize: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapGetters("builder", {
+      sizes: "sizes",
+      pizza: "pizza",
+    }),
   },
   methods: {
+    ...mapActions("builder", {
+      setPizzaSize: "setSize",
+    }),
     setSize(sizeName) {
-      const size = this.sizes.find((item) => item.name === sizeName);
-      this.$emit("setSize", size);
+      this.setPizzaSize(sizeName);
     },
   },
 };

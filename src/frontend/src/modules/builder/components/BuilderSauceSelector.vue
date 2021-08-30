@@ -10,7 +10,7 @@
       <RadioButton
         name="sauce"
         :value="sauce.name"
-        :checked="sauce.id === currentSauce.id"
+        :checked="sauce.id === pizza.sauce.id"
         @handleChoice="setSauce"
       />
       <span>{{ sauce.name }}</span>
@@ -18,25 +18,24 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
 import RadioButton from "../../../common/components/RadioButton";
 export default {
   name: "BuilderSauceSelector",
   components: { RadioButton },
-  props: {
-    sauces: {
-      type: Array,
-      required: true,
-    },
-    currentSauce: {
-      type: Object,
-      required: true,
-    },
+  computed: {
+    ...mapGetters("builder", {
+      sauces: "sauces",
+      pizza: "pizza",
+    }),
   },
   methods: {
     setSauce(sauceName) {
-      const sauce = this.sauces.find((item) => item.name === sauceName);
-      this.$emit("setSauce", sauce);
+      this.setPizzaSauce(sauceName);
     },
+    ...mapActions("builder", {
+      setPizzaSauce: "setSauce",
+    }),
   },
 };
 </script>

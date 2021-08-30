@@ -41,20 +41,23 @@
 import ItemCounter from "../../../common/components/ItemCounter";
 import AppDrag from "../../../common/components/AppDrag";
 import { INGREDIENT_MAX_COUNT } from "../../../common/constants";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "BuilderIngredientsSelector",
   components: { ItemCounter, AppDrag },
-  props: {
-    ingredients: {
-      type: Array,
-      required: true,
-    },
+  computed: {
+    ...mapGetters("builder", {
+      ingredients: "ingredients",
+      pizza: "pizza",
+    }),
   },
-
   methods: {
+    ...mapActions("builder", {
+      setIngredient: "setIngredient",
+    }),
     setCount(ingredientId, count) {
-      this.$emit("setIngredient", ingredientId, count);
+      this.setIngredient({ ingredientId, count });
     },
     isDraggable(ingredient) {
       return ingredient.count < INGREDIENT_MAX_COUNT;

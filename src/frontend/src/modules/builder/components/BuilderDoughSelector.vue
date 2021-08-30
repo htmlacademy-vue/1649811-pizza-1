@@ -26,42 +26,22 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "BuilderDoughSelector",
-  // props: {
-  //   doughs: {
-  //     type: Array,
-  //     required: true,
-  //   },
-  //   currentDough: {
-  //     type: Object,
-  //     required: true,
-  //   },
-  // },
   components: {
     RadioButton,
   },
   methods: {
     ...mapActions("builder", {
-      changeDough: "setDough",
+      setPizzaDough: "setDough",
     }),
     setDough(doughName) {
-      const dough = this.doughs.find((item) => item.name === doughName);
-      this.$emit("setDough", dough);
-      this.changeDough(doughName);
+      this.setPizzaDough(doughName);
     },
   },
   computed: {
     ...mapGetters("builder", {
-      // currentDough: "currentDough",
       pizza: "pizza",
       doughs: "doughs",
     }),
-  },
-
-  created() {
-    console.log(this.pizza);
-  },
-  updated() {
-    console.log(this.pizza);
   },
 };
 </script>

@@ -12,15 +12,14 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "BuilderPriceCounter",
-  props: {
-    pizza: {
-      type: Object,
-      required: true,
-    },
-  },
   computed: {
+    ...mapGetters("builder", {
+      pizza: "pizza",
+    }),
     isDisabled() {
       return !this.pizza.name.length || !this.pizza.price;
     },
