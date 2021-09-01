@@ -5,10 +5,10 @@ export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
 
 export const AppRoute = {
+  MAIN: "/",
+  CART: "/cart",
   LOGIN: "/login",
   LOGIN_INDEX: "login-index",
-  MAIN: `/`,
-  PROFILE: "/profile",
-  CART: "/cart",
   ORDERS: "/orders",
+  PROFILE: "/profile",
 };

@@ -10,7 +10,9 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link :to="AppRoute.CART">{{ price }} ₽</router-link>
+      <router-link :to="AppRoute.CART" :class="cartLinkClass"
+        >{{ price }} ₽</router-link
+      >
     </div>
     <div class="header__user">
       <router-link :to="loginPath" class="header__login">
@@ -32,7 +34,13 @@ export default {
   },
   computed: {
     loginPath() {
-      return this.$route.path === "/" ? AppRoute.LOGIN_INDEX : AppRoute.LOGIN;
+      return this.$route.path === AppRoute.MAIN
+        ? AppRoute.LOGIN_INDEX
+        : AppRoute.LOGIN;
+    },
+    cartLinkClass() {
+      return this.$route.path === AppRoute.CART ? "disabled" : "";
+      // return "";
     },
     ...mapGetters("cart", ["price"]),
   },
@@ -43,6 +51,13 @@ export default {
 @import "~@/assets/scss/mixins/logo";
 //$loginImage: "~@/assets/img/login.svg";
 $loginImage: null;
+
+.disabled {
+  pointer-events: none;
+  background-color: $green-600 !important;
+  color: $green-200 !important;
+  background-image: url("~@/assets/img/cart-active.svg") !important;
+}
 
 .header {
   position: relative;
