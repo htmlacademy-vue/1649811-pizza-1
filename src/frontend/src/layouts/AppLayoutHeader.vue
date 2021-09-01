@@ -10,7 +10,7 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link :to="AppRoute.CART">0 ₽</router-link>
+      <router-link :to="AppRoute.CART">{{ price }} ₽</router-link>
     </div>
     <div class="header__user">
       <router-link :to="loginPath" class="header__login">
@@ -22,6 +22,7 @@
 
 <script>
 import { AppRoute } from "../common/constants";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -33,6 +34,7 @@ export default {
     loginPath() {
       return this.$route.path === "/" ? AppRoute.LOGIN_INDEX : AppRoute.LOGIN;
     },
+    ...mapGetters("cart", ["price"]),
   },
 };
 </script>

@@ -1,20 +1,15 @@
 import { dough, ingredients, sauces, sizes } from "../../../static/pizza.json";
-import {
-  normalizeDough,
-  normalizeIngredient,
-  normalizeSize,
-} from "../../../common/utils/helpers";
+import { normalizeDough, normalizeSize } from "../../../common/utils/helpers";
+import { Entity } from "./const";
 
 export default {
-  doughs: dough.map((item) => normalizeDough(item)),
-  ingredients: ingredients.map((item) => normalizeIngredient(item)),
+  loadedIngredients: ingredients,
   sauces,
+  doughs: dough.map((item) => normalizeDough(item)),
   sizes: sizes.map((item) => normalizeSize(item)),
-  ingredientsPrice: 0,
-  addedIngredients: [],
-  currentDough: dough[0],
-  currentSauce: sauces[0],
-  currentSize: sizes[0],
-  pizzaName: "",
-  price: 0,
+  [Entity.INGREDIENTS]: [],
+  [Entity.CURRENT_DOUGH]: {},
+  [Entity.CURRENT_SAUCE]: {},
+  [Entity.CURRENT_SIZE]: {},
+  [Entity.PIZZA_NAME]: "",
 };
