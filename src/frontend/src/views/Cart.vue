@@ -11,27 +11,35 @@
         </div>
 
         <template v-else>
-          <CartList />
+          <ul class="cart-list sheet">
+            <CartItem
+              v-for="product in items"
+              :key="product.id"
+              :product="product"
+            />
+          </ul>
+
+          <CartAdditional />
+
+          <CartOrder />
         </template>
-
-        <CartAdditional />
-
-        <CartOrder />
       </div>
     </main>
 
-    <CartFooter />
+    <template v-if="items.length">
+      <CartFooter />
+    </template>
   </form>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import CartList from "../modules/cart/components/CartList";
+import CartItem from "../modules/cart/components/CartItem";
 import CartAdditional from "../modules/cart/components/CartAdditional";
 import CartOrder from "../modules/cart/components/CartOrder";
 import CartFooter from "../modules/cart/components/CartFooter";
 
 export default {
-  components: { CartList, CartOrder, CartAdditional, CartFooter },
+  components: { CartItem, CartOrder, CartAdditional, CartFooter },
   computed: {
     ...mapGetters("cart", {
       items: "getItems",
