@@ -7,6 +7,13 @@ export const normalizeIngredient = (ingredient) => {
   };
 };
 
+export const normalizeAdditional = (product) => {
+  return {
+    ...product,
+    count: 1,
+  };
+};
+
 const getIngredientImageName = (ingredient) => {
   const image = ingredient.image.split(`/`).pop();
   return image.split(`.`).reverse().pop();
@@ -39,3 +46,6 @@ const getSizeClass = (size) => {
       return "diameter__input diameter__input--big";
   }
 };
+
+export const capitalize = (string) =>
+  `${string.charAt(0).toUpperCase()}${string.slice(1)}`;

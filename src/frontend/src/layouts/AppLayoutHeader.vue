@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__logo">
-      <router-link to="/" class="logo">
+      <router-link :to="AppRoute.MAIN" class="logo">
         <img
           class="header__logo__image"
           src="@/assets/img/logo.svg"
@@ -10,7 +10,9 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link to="/cart">0 ₽</router-link>
+      <router-link :to="AppRoute.CART" :class="cartLinkClass"
+        >{{ price }} ₽</router-link
+      >
     </div>
     <div class="header__user">
       <router-link :to="loginPath" class="header__login">
@@ -21,12 +23,26 @@
 </template>
 
 <script>
+import { AppRoute } from "../common/constants";
+import { mapGetters } from "vuex";
+
 export default {
-  props: {
-    loginPath: {
-      type: String,
-      required: true,
+  data() {
+    return {
+      AppRoute,
+    };
+  },
+  computed: {
+    loginPath() {
+      return this.$route.path === AppRoute.MAIN
+        ? AppRoute.LOGIN_INDEX
+        : AppRoute.LOGIN;
     },
+    cartLinkClass() {
+      return this.$route.path === AppRoute.CART ? "disabled" : "";
+      // return "";
+    },
+    ...mapGetters("cart", ["price"]),
   },
 };
 </script>
@@ -35,6 +51,13 @@ export default {
 @import "~@/assets/scss/mixins/logo";
 //$loginImage: "~@/assets/img/login.svg";
 $loginImage: null;
+
+.disabled {
+  pointer-events: none;
+  background-color: $green-600 !important;
+  color: $green-200 !important;
+  background-image: url("~@/assets/img/cart-active.svg") !important;
+}
 
 .header {
   position: relative;

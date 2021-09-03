@@ -1,24 +1,15 @@
 <template>
-  <div>
-    <component :is="layout" :login-path="loginPath">
-      <slot />
-    </component>
-  </div>
+  <component :is="layout">
+    <slot />
+  </component>
 </template>
 
 <script>
 import AppLayoutHeader from "./AppLayoutHeader";
-import Index from "../views/Index";
 
 const defaultLayout = "AppLayoutDefault";
 
 export default {
-  props: {
-    loginPath: {
-      type: String,
-      required: true,
-    },
-  },
   computed: {
     layout() {
       const layout = this.$route.meta.layout || defaultLayout;
@@ -27,7 +18,6 @@ export default {
   },
   components: {
     AppLayoutHeader,
-    Index,
   },
 };
 </script>

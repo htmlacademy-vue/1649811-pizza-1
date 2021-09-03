@@ -1,3 +1,4 @@
+import { AppRoute } from "../common/constants";
 import Cart from "../views/Cart";
 import Login from "../views/Login";
 import Orders from "../views/Orders";
@@ -7,35 +8,35 @@ import LoginModal from "../views/LoginModal";
 
 export default [
   {
-    path: "/",
+    path: AppRoute.MAIN,
     name: "IndexHome",
     component: IndexHome,
     children: [
       {
-        path: "login-index",
+        path: AppRoute.LOGIN_INDEX,
         name: "LoginIndex",
         component: LoginModal,
       },
     ],
   },
   {
-    path: "/profile",
+    path: AppRoute.PROFILE,
     name: "Profile",
     component: Profile,
   },
   {
-    path: "/login",
+    path: AppRoute.LOGIN,
     name: "Login",
     component: Login,
     meta: { layout: "AppLayoutLogin" },
   },
   {
-    path: "/cart",
+    path: AppRoute.CART,
     name: "Cart",
     component: Cart,
   },
   {
-    path: "/orders",
+    path: AppRoute.ORDERS,
     name: "Orders",
     component: Orders,
   },

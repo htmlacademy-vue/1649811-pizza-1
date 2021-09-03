@@ -9,7 +9,7 @@
             name="dough"
             class="visually-hidden"
             :value="dough.name"
-            :checked="dough.id === currentDough.id"
+            :checked="dough.id === pizza.dough.id"
             @handleChoice="setDough"
           />
           <b>{{ dough.name }}</b>
@@ -22,27 +22,26 @@
 
 <script>
 import RadioButton from "../../../common/components/RadioButton";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "BuilderDoughSelector",
-  props: {
-    doughs: {
-      type: Array,
-      required: true,
-    },
-    currentDough: {
-      type: Object,
-      required: true,
-    },
-  },
   components: {
     RadioButton,
   },
   methods: {
+    ...mapActions("builder", {
+      setPizzaDough: "setDough",
+    }),
     setDough(doughName) {
-      const dough = this.doughs.find((item) => item.name === doughName);
-      this.$emit("setDough", dough);
+      this.setPizzaDough(doughName);
     },
+  },
+  computed: {
+    ...mapGetters("builder", {
+      pizza: "pizza",
+      doughs: "doughs",
+    }),
   },
 };
 </script>

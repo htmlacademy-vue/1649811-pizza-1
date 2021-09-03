@@ -6,23 +6,36 @@
       class="button"
       :class="isDisabled ? 'button--disabled' : ''"
       :disabled="isDisabled"
+      @click="addToCart"
     >
       Готовьте!
     </button>
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "BuilderPriceCounter",
-  props: {
-    pizza: {
-      type: Object,
-      required: true,
+  computed: {
+    ...mapGetters("builder", {
+      pizza: "pizza",
+      addedIngredients: "addedIngredients",
+    }),
+    isDisabled() {
+      return (
+        !this.pizza.name.length ||
+        !this.pizza.price ||
+        !this.addedIngredients.length
+      );
     },
   },
-  computed: {
-    isDisabled() {
-      return !this.pizza.name.length || !this.pizza.price;
+  methods: {
+    ...mapActions("cart", ["addPizza"]),
+    ...mapActions("builder", { pizzaInit: "init" }),
+    addToCart() {
+      this.addPizza();
+      this.pizzaInit();
     },
   },
 };

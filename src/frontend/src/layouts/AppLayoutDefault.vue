@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <AppLayoutHeader :login-path="loginPath" />
+  <div class="full-height">
+    <AppLayoutHeader />
     <slot />
   </div>
 </template>
@@ -8,12 +8,13 @@
 import AppLayoutHeader from "./AppLayoutHeader";
 
 export default {
-  props: {
-    loginPath: {
-      type: String,
-      required: true,
-    },
-  },
   components: { AppLayoutHeader },
 };
 </script>
+<style lang="scss">
+.full-height {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+</style>
