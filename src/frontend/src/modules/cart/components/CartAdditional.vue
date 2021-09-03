@@ -1,123 +1,33 @@
 <template>
   <div class="cart__additional">
     <ul class="additional-list">
-      <li class="additional-list__item sheet">
+      <li
+        v-for="product in additional"
+        :key="product.id"
+        class="additional-list__item sheet"
+      >
         <p class="additional-list__description">
           <img
-            src="@/assets/img/cola.svg"
+            :src="product.image"
             width="39"
             height="60"
-            alt="Coca-Cola 0,5 литра"
+            :alt="product.name"
           />
-          <span>Coca-Cola 0,5 литра</span>
+          <span>{{ product.name }}</span>
         </p>
 
         <div class="additional-list__wrapper">
-          <div class="counter additional-list__counter">
-            <button
-              type="button"
-              class="counter__button counter__button--minus"
-            >
-              <span class="visually-hidden">Меньше</span>
-            </button>
-            <input
-              type="text"
-              name="counter"
-              class="counter__input"
-              value="2"
-            />
-            <button
-              type="button"
-              class="
-                counter__button counter__button--plus counter__button--orange
-              "
-            >
-              <span class="visually-hidden">Больше</span>
-            </button>
-          </div>
-
-          <div class="additional-list__price">
-            <b>56 ₽</b>
-          </div>
-        </div>
-      </li>
-      <li class="additional-list__item sheet">
-        <p class="additional-list__description">
-          <img
-            src="@/assets/img/sauce.svg"
-            width="39"
-            height="60"
-            alt="Острый соус"
+          <CartButtonCounter
+            class="additional-list__counter"
+            :id="product.id"
+            :count="product.count"
+            @increment="increment"
+            @decrement="decrement"
+            @change="changeCount"
           />
-          <span>Острый соус</span>
-        </p>
-
-        <div class="additional-list__wrapper">
-          <div class="counter additional-list__counter">
-            <button
-              type="button"
-              class="counter__button counter__button--minus"
-            >
-              <span class="visually-hidden">Меньше</span>
-            </button>
-            <input
-              type="text"
-              name="counter"
-              class="counter__input"
-              value="2"
-            />
-            <button
-              type="button"
-              class="
-                counter__button counter__button--plus counter__button--orange
-              "
-            >
-              <span class="visually-hidden">Больше</span>
-            </button>
-          </div>
 
           <div class="additional-list__price">
-            <b>30 ₽</b>
-          </div>
-        </div>
-      </li>
-      <li class="additional-list__item sheet">
-        <p class="additional-list__description">
-          <img
-            src="@/assets/img/potato.svg"
-            width="39"
-            height="60"
-            alt="Картошка из печи"
-          />
-          <span>Картошка из печи</span>
-        </p>
-
-        <div class="additional-list__wrapper">
-          <div class="counter additional-list__counter">
-            <button
-              type="button"
-              class="counter__button counter__button--minus"
-            >
-              <span class="visually-hidden">Меньше</span>
-            </button>
-            <input
-              type="text"
-              name="counter"
-              class="counter__input"
-              value="2"
-            />
-            <button
-              type="button"
-              class="
-                counter__button counter__button--plus counter__button--orange
-              "
-            >
-              <span class="visually-hidden">Больше</span>
-            </button>
-          </div>
-
-          <div class="additional-list__price">
-            <b>56 ₽</b>
+            <b>{{ product.price * product.count }} ₽</b>
           </div>
         </div>
       </li>
@@ -125,7 +35,23 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
+import CartButtonCounter from "./CartButtonCounter";
+
 export default {
   name: "CartAdditional",
+  components: { CartButtonCounter },
+  computed: {
+    ...mapGetters("cart", {
+      additional: "getAdditional",
+    }),
+  },
+  methods: {
+    ...mapActions("cart", {
+      increment: "incrementAdditional",
+      decrement: "decrementAdditional",
+      changeCount: "changeCountAdditional",
+    }),
+  },
 };
 </script>

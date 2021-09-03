@@ -5,4 +5,6 @@ export const Entity = {
   CURRENT_SIZE: "currentSize",
   PIZZA_NAME: "pizzaName",
   INGREDIENTS: "ingredients",
+  PIZZA_ID: "pizzaId",
+  PIZZA_COUNT: "pizzaCount",
 };

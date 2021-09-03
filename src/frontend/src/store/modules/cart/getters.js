@@ -1,8 +1,22 @@
+import { calculateItemsPrice } from "../../../common/utils/pizza";
+import { Entity } from "./const";
+
 export default {
-  price: ({ items }) => {
-    return items.reduce((acc, item) => acc + item.price * item.count, 0);
+  price: (state, getters) => {
+    return getters.itemsPrice
+      ? getters.itemsPrice + getters.additionalPrice
+      : 0;
   },
-  getItems: ({ items }) => {
-    return items;
+  itemsPrice: (state) => {
+    return calculateItemsPrice(state[Entity.ITEMS]);
+  },
+  additionalPrice: (state) => {
+    return calculateItemsPrice(state[Entity.ADDITIONAL]);
+  },
+  getItems: (state) => {
+    return state[Entity.ITEMS];
+  },
+  getAdditional: (state) => {
+    return state[Entity.ADDITIONAL];
   },
 };

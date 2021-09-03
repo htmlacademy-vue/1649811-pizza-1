@@ -6,9 +6,6 @@ export const calculatePrice = (
 ) => {
   return (ingredientsPrice + doughPrice + saucePrice) * multiplier;
 };
-export const calculateIngredientsPrice = (ingredients) => {
-  return ingredients.reduce((acc, item) => acc + item.count * item.price, 0);
-};
-export const getAddedIngredients = (ingredients) => {
-  return ingredients.filter((item) => item.count > 0);
+export const calculateItemsPrice = (items) => {
+  return items.reduce((acc, item) => acc + item.count * item.price, 0);
 };

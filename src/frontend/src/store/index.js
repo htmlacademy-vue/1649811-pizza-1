@@ -15,6 +15,7 @@ const state = () => ({});
 const actions = {
   async init({ dispatch }) {
     dispatch("builder/init");
+    dispatch("cart/init");
   },
 };
 
@@ -29,8 +30,12 @@ const mutations = {
       state[entity] = [...state[entity], value];
     }
   },
-  [UPDATE_ENTITY](state, { module, entity, value }) {
+  [UPDATE_ENTITY](state, { module, entity, value, itemIndex = null }) {
     if (module) {
+      if (itemIndex) {
+        state[module][entity].splice(itemIndex, 1, value);
+        return;
+      }
       const index = state[module][entity].findIndex(
         ({ id }) => id === value.id
       );
@@ -38,6 +43,10 @@ const mutations = {
         state[module][entity].splice(index, 1, value);
       }
     } else {
+      if (itemIndex) {
+        state[entity].splice(itemIndex, 1, value);
+        return;
+      }
       const index = state[entity].findIndex(({ id }) => id === value.id);
       if (~index) {
         state[entity].splice(index, 1, value);

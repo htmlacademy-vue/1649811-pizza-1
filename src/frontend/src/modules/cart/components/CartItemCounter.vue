@@ -1,36 +1,20 @@
 <template>
-  <div class="counter cart-list__counter">
-    <button
-      type="button"
-      class="counter__button counter__button--minus"
-      :data-id="id"
-      @click="handleDecrement"
-    >
-      <span class="visually-hidden">Меньше</span>
-    </button>
-    <input
-      type="text"
-      name="counter"
-      class="counter__input"
-      :value="count"
-      :data-id="id"
-      @change="handleInputCountChange"
-    />
-    <button
-      type="button"
-      class="counter__button counter__button--plus counter__button--orange"
-      :data-id="id"
-      @click="handleIncrement"
-    >
-      <span class="visually-hidden">Больше</span>
-    </button>
-  </div>
+  <CartButtonCounter
+    class="cart-list__counter"
+    :id="id"
+    :count="count"
+    @increment="increment"
+    @decrement="decrement"
+    @change="changeCount"
+  />
 </template>
 <script>
 import { mapActions } from "vuex";
+import CartButtonCounter from "./CartButtonCounter";
 
 export default {
   name: "CartItemCounter",
+  components: { CartButtonCounter },
   props: {
     count: {
       type: Number,
@@ -42,22 +26,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions("cart", ["increment", "decrement", "changeCount"]),
-    handleIncrement(event) {
-      const { id } = event.target.dataset;
-      this.increment(id);
-    },
-    handleDecrement(event) {
-      const { id } = event.target.dataset;
-      this.decrement(id);
-    },
-    handleInputCountChange(event) {
-      const {
-        dataset: { id },
-        value: count,
-      } = event.target;
-      this.changeCount({ id, count });
-    },
+    ...mapActions("cart", {
+      increment: "incrementItems",
+      decrement: "decrementItems",
+      changeCount: "changeItemsCount",
+    }),
   },
 };
 </script>

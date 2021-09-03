@@ -10,13 +10,13 @@ const module = MODULE;
 
 export default {
   async init({ state, dispatch }, pizza = null) {
-    let name, dough, sauce, size;
+    let id, name, dough, sauce, size, count;
     const ingredients = state.loadedIngredients.map((item) =>
       normalizeIngredient(item)
     );
 
     if (pizza) {
-      ({ name, dough, sauce, size } = pizza);
+      ({ id, name, dough, sauce, size, count } = pizza);
       pizza.ingredients.forEach((item) => {
         const ingredient = ingredients.find((i) => +i.id === +item.id);
         if (ingredient) {
@@ -24,17 +24,21 @@ export default {
         }
       });
     } else {
+      id = null;
       name = "";
       dough = state.doughs[0];
       sauce = state.sauces[0];
       size = state.sizes[0];
+      count = 1;
     }
+    dispatch("setEntity", { entity: Entity.PIZZA_ID, value: id });
     dispatch("setEntity", { entity: Entity.INGREDIENTS, value: ingredients });
     dispatch("setName", name);
     dispatch("setEntity", { entity: Entity.CURRENT_DOUGH, value: dough });
     dispatch("setEntity", { entity: Entity.CURRENT_DOUGH, value: dough });
     dispatch("setEntity", { entity: Entity.CURRENT_SAUCE, value: sauce });
     dispatch("setEntity", { entity: Entity.CURRENT_SIZE, value: size });
+    dispatch("setEntity", { entity: Entity.PIZZA_COUNT, value: count });
   },
   async setEntity({ commit }, data) {
     commit(SET_ENTITY, { module, ...data }, { root: true });

@@ -12,4 +12,6 @@ export default {
   [Entity.CURRENT_SAUCE]: {},
   [Entity.CURRENT_SIZE]: {},
   [Entity.PIZZA_NAME]: "",
+  [Entity.PIZZA_ID]: null,
+  [Entity.PIZZA_COUNT]: 1,
 };

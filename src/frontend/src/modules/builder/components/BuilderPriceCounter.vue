@@ -20,9 +20,14 @@ export default {
   computed: {
     ...mapGetters("builder", {
       pizza: "pizza",
+      addedIngredients: "addedIngredients",
     }),
     isDisabled() {
-      return !this.pizza.name.length || !this.pizza.price;
+      return (
+        !this.pizza.name.length ||
+        !this.pizza.price ||
+        !this.addedIngredients.length
+      );
     },
   },
   methods: {
