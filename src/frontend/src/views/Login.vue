@@ -1,29 +1,99 @@
 <template>
   <div class="sign-form">
-    <router-link to="/" class="close close--white">
+    <router-link :to="AppRoute.MAIN" class="close close--white">
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </router-link>
     <div class="sign-form__title">
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
-    <form action="#" method="post">
+    <form action="#" method="post" @submit.prevent="login">
       <div class="sign-form__input">
         <label class="input">
           <span>E-mail</span>
-          <input type="email" name="email" placeholder="example@mail.ru" />
+          <input
+            type="email"
+            name="email"
+            v-model="email"
+            placeholder="example@mail.ru"
+          />
         </label>
       </div>
 
       <div class="sign-form__input">
         <label class="input">
           <span>Пароль</span>
-          <input type="password" name="pass" placeholder="***********" />
+          <input
+            type="password"
+            name="password"
+            v-model="password"
+            placeholder="***********"
+          />
         </label>
       </div>
       <button type="submit" class="button">Авторизоваться</button>
     </form>
   </div>
 </template>
+
+<script>
+import { AppRoute } from "../common/constants";
+import validator from "../common/mixins/validator";
+import { getValidationErrorMessage } from "../common/utils/helpers";
+
+export default {
+  mixins: [validator],
+  data() {
+    return {
+      email: "",
+      password: "",
+      validations: {
+        email: {
+          name: "E-mail",
+          error: "",
+          rules: ["required", "email"],
+        },
+        password: {
+          name: "Пароль",
+          error: "",
+          rules: ["required"],
+        },
+      },
+      AppRoute,
+    };
+  },
+  watch: {
+    email() {
+      this.$clearValidationErrors(this.validations);
+    },
+    password() {
+      this.$clearValidationErrors(this.validations);
+    },
+  },
+  methods: {
+    async login() {
+      try {
+        if (
+          !this.$validateFields(
+            { email: this.email, password: this.password },
+            this.validations
+          )
+        ) {
+          const errorMessage = getValidationErrorMessage(this.validations);
+          this.$notifier.error(errorMessage);
+          return;
+        }
+
+        await this.$store.dispatch("auth/login", {
+          email: this.email,
+          password: this.password,
+        });
+        await this.$router.push(AppRoute.MAIN);
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 @import "~@/assets/scss/mixins/m_center.scss";

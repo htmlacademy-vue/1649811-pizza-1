@@ -8,6 +8,7 @@ import {
 import { normalizeAdditional } from "../../../common/utils/helpers";
 import { MODULE, Entity } from "./const";
 import { INGREDIENT_MIN_COUNT } from "../../../common/constants";
+import resources from "../../../common/enums/resources";
 
 const module = MODULE;
 
@@ -15,8 +16,16 @@ const findItem = (state, entity, id) =>
   state[entity].find((item) => +item.id === +id);
 
 export default {
+  async loadData({ commit }) {
+    const value = await this.$api.fetchData.get(resources.MISC);
+    commit(
+      SET_ENTITY,
+      { entity: Entity.LOADED_ADDITIONAL, module, value },
+      { root: true }
+    );
+  },
   async init({ commit, state }) {
-    const additional = state.loadedAdditional.map((product) =>
+    const additional = state[Entity.LOADED_ADDITIONAL].map((product) =>
       normalizeAdditional(product)
     );
     commit(

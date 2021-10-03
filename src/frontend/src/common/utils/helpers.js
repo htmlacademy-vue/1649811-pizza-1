@@ -49,3 +49,17 @@ const getSizeClass = (size) => {
 
 export const capitalize = (string) =>
   `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
+
+export const getValidationErrorMessage = (validations) => {
+  let errors = [];
+
+  Object.keys(validations).forEach((key) => {
+    const error = validations[key].error;
+    if (error.length) {
+      const message = `${validations[key].name} - ${error}`;
+      errors.push(message);
+    }
+  });
+
+  return errors.join(".\n");
+};

@@ -15,24 +15,55 @@
       >
     </div>
     <div class="header__user">
-      <router-link :to="loginPath" class="header__login">
-        <span>Войти</span>
-      </router-link>
+      <template v-if="!user">
+        <router-link :to="loginPath" class="header__login">
+          <span>Войти</span>
+        </router-link>
+      </template>
+
+      <template v-else>
+        <router-link :to="AppRoute.PROFILE">
+          <picture>
+            <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+          </picture>
+
+          <span>{{ user.name }}</span>
+        </router-link>
+
+        <router-link
+          to="#"
+          @click.prevent.native="$logout"
+          class="header__logout"
+        >
+          <span>Выйти</span>
+        </router-link>
+      </template>
     </div>
   </header>
 </template>
 
 <script>
 import { AppRoute } from "../common/constants";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import { logout } from "../common/mixins";
 
 export default {
+  mixins: [logout],
   data() {
     return {
       AppRoute,
     };
   },
+  methods: {
+    ...mapActions({
+      appLogout: "auth/logout",
+    }),
+  },
   computed: {
+    ...mapGetters({
+      user: "auth/getUser",
+      price: "cart/price",
+    }),
     loginPath() {
       return this.$route.path === AppRoute.MAIN
         ? AppRoute.LOGIN_INDEX
@@ -40,9 +71,7 @@ export default {
     },
     cartLinkClass() {
       return this.$route.path === AppRoute.CART ? "disabled" : "";
-      // return "";
     },
-    ...mapGetters("cart", ["price"]),
   },
 };
 </script>

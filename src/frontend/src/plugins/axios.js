@@ -1,0 +1,19 @@
+import axios from "axios";
+import { Message } from "../common/constants";
+
+const axiosInstance = axios.create({
+  baseURL: "/api/",
+});
+
+// добавляем централизованную обработку ошибок при получении ответа от сервера
+axiosInstance.interceptors.response.use(
+  (res) => res,
+  (e) => {
+    axiosInstance.$notifier.error(
+      e?.response?.data?.error?.message || Message.SERVER_ERROR
+    );
+    return Promise.reject(e);
+  }
+);
+
+export default axiosInstance;

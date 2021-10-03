@@ -14,6 +14,9 @@ export default {
   created() {
     this.$store.dispatch("init");
   },
+  async mounted() {
+    await this.$store.dispatch("auth/setAuth");
+  },
   components: {
     AppLayout,
   },
