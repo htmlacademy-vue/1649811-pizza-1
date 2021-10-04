@@ -1,7 +1,7 @@
 import {
   INGREDIENT_MAX_COUNT,
   INGREDIENT_MIN_COUNT,
-} from "../../../common/constants";
+} from "../../../common/const/common";
 import {
   normalizeDough,
   normalizeIngredient,

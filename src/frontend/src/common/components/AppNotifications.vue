@@ -5,7 +5,7 @@
       :key="i"
       :class="`notification notification--${type}`"
     >
-      <span>{{ text }}</span>
+      <p v-html="text"></p>
     </div>
   </div>
 </template>
@@ -63,6 +63,10 @@ export default {
   &--warning {
     border-color: $orange-600;
     background: $orange-300;
+  }
+
+  p {
+    text-align: left;
   }
 }
 </style>

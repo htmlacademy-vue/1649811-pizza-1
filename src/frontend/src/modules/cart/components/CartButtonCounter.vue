@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { INGREDIENT_MIN_COUNT } from "../../../common/constants";
+import { INGREDIENT_MIN_COUNT } from "../../../common/const/common";
 
 export default {
   props: {

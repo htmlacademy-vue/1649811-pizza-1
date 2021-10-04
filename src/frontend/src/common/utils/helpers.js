@@ -61,5 +61,5 @@ export const getValidationErrorMessage = (validations) => {
     }
   });
 
-  return errors.join(".\n");
+  return errors.join(".<br>");
 };

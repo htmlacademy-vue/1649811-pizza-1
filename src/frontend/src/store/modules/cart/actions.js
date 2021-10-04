@@ -7,7 +7,7 @@ import {
 } from "../../mutation-types";
 import { normalizeAdditional } from "../../../common/utils/helpers";
 import { MODULE, Entity } from "./const";
-import { INGREDIENT_MIN_COUNT } from "../../../common/constants";
+import { INGREDIENT_MIN_COUNT } from "../../../common/const/common";
 import resources from "../../../common/enums/resources";
 
 const module = MODULE;

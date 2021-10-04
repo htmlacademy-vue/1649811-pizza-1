@@ -1,4 +1,4 @@
-import { AppRoute } from "../common/constants";
+import { AppRoute } from "../common/const/common";
 import Cart from "../views/Cart";
 import Login from "../views/Login";
 import Orders from "../views/Orders";

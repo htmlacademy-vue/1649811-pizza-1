@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Message } from "../common/constants";
+import { Message } from "../common/const/common";
 
 const axiosInstance = axios.create({
   baseURL: "/api/",

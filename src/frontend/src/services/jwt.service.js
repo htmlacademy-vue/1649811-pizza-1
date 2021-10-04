@@ -1,4 +1,4 @@
-import { TOKEN_KEY } from "../common/constants";
+import { TOKEN_KEY } from "../common/const/common";
 
 export const getToken = () => {
   return window.localStorage.getItem(TOKEN_KEY);

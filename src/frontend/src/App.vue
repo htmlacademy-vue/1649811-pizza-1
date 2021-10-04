@@ -11,10 +11,9 @@ import AppLayout from "./layouts/AppLayout";
 
 export default {
   name: "App",
-  created() {
-    this.$store.dispatch("init");
-  },
+
   async mounted() {
+    await this.$store.dispatch("init");
     await this.$store.dispatch("auth/setAuth");
   },
   components: {

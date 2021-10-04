@@ -11,7 +11,7 @@ import {
 } from "./mutation-types";
 import VuexPlugins from "../plugins/vuex-plugins";
 import { uniqueId } from "lodash";
-import { MESSAGE_LIVE_TIME } from "../common/constants";
+import { MESSAGE_LIVE_TIME } from "../common/const/common";
 
 Vue.use(Vuex);
 

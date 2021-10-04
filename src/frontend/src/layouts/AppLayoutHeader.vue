@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { AppRoute } from "../common/constants";
+import { AppRoute } from "../common/const/common";
 import { mapGetters, mapActions } from "vuex";
 import { logout } from "../common/mixins";
 

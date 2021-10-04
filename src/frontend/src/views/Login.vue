@@ -36,9 +36,10 @@
 </template>
 
 <script>
-import { AppRoute } from "../common/constants";
+import { AppRoute } from "../common/const/common";
 import validator from "../common/mixins/validator";
 import { getValidationErrorMessage } from "../common/utils/helpers";
+import { LoginValidations } from "../common/const/validation";
 
 export default {
   mixins: [validator],
@@ -46,19 +47,8 @@ export default {
     return {
       email: "",
       password: "",
-      validations: {
-        email: {
-          name: "E-mail",
-          error: "",
-          rules: ["required", "email"],
-        },
-        password: {
-          name: "Пароль",
-          error: "",
-          rules: ["required"],
-        },
-      },
       AppRoute,
+      validations: { ...LoginValidations },
     };
   },
   watch: {

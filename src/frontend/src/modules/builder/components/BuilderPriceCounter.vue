@@ -14,7 +14,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { Message } from "../../../common/constants";
+import { Message } from "../../../common/const/common";
 
 export default {
   name: "BuilderPriceCounter",
