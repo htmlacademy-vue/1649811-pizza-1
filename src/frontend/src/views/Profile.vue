@@ -1,19 +1,5 @@
 <template>
-  <main class="layout">
-    <div class="layout__sidebar sidebar temp-style">
-      <a :href="AppRoute.MAIN" class="logo layout__logo">
-        <img
-          src="@/assets/img/logo.svg"
-          alt="V!U!E! Pizza logo"
-          width="90"
-          height="40"
-        />
-      </a>
-
-      <a class="layout__link" href="#">История заказов</a>
-      <a class="layout__link layout__link--active" href="#">Мои данные</a>
-    </div>
-
+  <AppSideBar>
     <div class="layout__content">
       <div class="layout__title">
         <h1 class="title title--big">Мои данные</h1>
@@ -73,11 +59,12 @@
         </button>
       </div>
     </div>
-  </main>
+  </AppSideBar>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import AppSideBar from "../layouts/AppSideBar";
 import AddressForm from "../common/components/AddressForm";
 import resources from "../common/enums/resources";
 import { AppRoute } from "../common/const/common";
@@ -91,7 +78,7 @@ export default {
       editedAddressId: null,
     };
   },
-  components: { AddressForm },
+  components: { AddressForm, AppSideBar },
   computed: {
     ...mapGetters({
       user: "auth/getUser",
@@ -118,9 +105,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.temp-style {
-  z-index: -1 !important;
-}
-</style>
