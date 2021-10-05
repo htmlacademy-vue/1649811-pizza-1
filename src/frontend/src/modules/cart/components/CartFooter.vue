@@ -29,7 +29,7 @@
 <script>
 import { AppRoute } from "../../../common/const/common";
 import { mapGetters } from "vuex";
-import Popup from "../../../common/components/Popup";
+import Popup from "../../../common/components/AppPopup";
 
 export default {
   name: "CartFooter",

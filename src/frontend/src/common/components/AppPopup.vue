@@ -18,6 +18,7 @@
 import Modal from "./AppModal";
 
 export default {
+  name: "AppPopup",
   components: { Modal },
   methods: {
     handleClose() {

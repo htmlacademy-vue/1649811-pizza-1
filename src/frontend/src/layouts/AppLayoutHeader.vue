@@ -15,13 +15,7 @@
       >
     </div>
     <div class="header__user">
-      <template v-if="!user">
-        <router-link :to="loginPath" class="header__login">
-          <span>Войти</span>
-        </router-link>
-      </template>
-
-      <template v-else>
+      <template v-if="user">
         <router-link :to="AppRoute.PROFILE">
           <picture>
             <img :src="user.avatar" :alt="user.name" width="32" height="32" />
@@ -38,13 +32,19 @@
           <span>Выйти</span>
         </router-link>
       </template>
+
+      <template v-else>
+        <router-link :to="loginPath" class="header__login">
+          <span>Войти</span>
+        </router-link>
+      </template>
     </div>
   </header>
 </template>
 
 <script>
 import { AppRoute } from "../common/const/common";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import { logout } from "../common/mixins";
 
 export default {
@@ -53,11 +53,6 @@ export default {
     return {
       AppRoute,
     };
-  },
-  methods: {
-    ...mapActions({
-      appLogout: "auth/logout",
-    }),
   },
   computed: {
     ...mapGetters({

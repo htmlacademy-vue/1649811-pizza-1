@@ -63,10 +63,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import AppSideBar from "../layouts/AppSideBar";
 import AddressForm from "../common/components/AddressForm";
-import resources from "../common/enums/resources";
 import { AppRoute } from "../common/const/common";
 
 export default {
@@ -74,7 +73,6 @@ export default {
     return {
       newAddressId: "new",
       AppRoute,
-      addresses: [],
       editedAddressId: null,
     };
   },
@@ -82,9 +80,13 @@ export default {
   computed: {
     ...mapGetters({
       user: "auth/getUser",
+      addresses: "auth/getUserAddresses",
     }),
   },
   methods: {
+    ...mapActions({
+      setAddresses: "auth/setUserAddresses",
+    }),
     addressToString(address) {
       const apart = +address.flat !== 0 ? `, оф. ${address.flat}` : "";
       return `${address.street}, д. ${address.building}${apart}`;
@@ -96,12 +98,6 @@ export default {
       this.editedAddressId = null;
       await this.setAddresses();
     },
-    async setAddresses() {
-      this.addresses = await this.$api[resources.ADDRESSES].get();
-    },
-  },
-  async mounted() {
-    await this.setAddresses();
   },
 };
 </script>

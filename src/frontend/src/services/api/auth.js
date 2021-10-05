@@ -9,9 +9,9 @@ export default class AuthApiService extends BaseApiService {
   }
   setAuthHeader() {
     const token = JwtService.getToken();
-    axios.defaults.headers.common["Authorization"] = token
-      ? `Bearer ${token}`
-      : "";
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
   }
 
   async login(params) {

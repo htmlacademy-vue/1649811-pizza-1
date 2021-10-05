@@ -1,4 +1,4 @@
-import auth from "./auth.store";
+import auth from "./auth";
 import builder from "./builder";
 import cart from "./cart";
 import orders from "./orders.store";
