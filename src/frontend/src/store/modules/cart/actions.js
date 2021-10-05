@@ -5,7 +5,7 @@ import {
   SET_ENTITY,
   UPDATE_ENTITY,
 } from "../../mutation-types";
-import { normalizeAdditional } from "../../../common/utils/helpers";
+import { normalizeAdditional } from "../../../common/utils/helpers/normalize";
 import { MODULE, Entity } from "./const";
 import { INGREDIENT_MIN_COUNT } from "../../../common/const/common";
 import resources from "../../../common/enums/resources";
@@ -24,6 +24,7 @@ export default {
       { root: true }
     );
   },
+
   async init({ commit, state }) {
     const additional = state[Entity.LOADED_ADDITIONAL].map((product) =>
       normalizeAdditional(product)
@@ -66,6 +67,7 @@ export default {
   async incrementItems({ dispatch }, id) {
     dispatch("increment", { id, entity: Entity.ITEMS });
   },
+
   async decrementItems({ state, dispatch }, id) {
     const entity = Entity.ITEMS;
     const item = findItem(state, entity, id);
@@ -76,6 +78,7 @@ export default {
     item.count--;
     dispatch("update", { item, entity });
   },
+
   async changeItemsCount({ state, dispatch }, { id, count }) {
     const entity = Entity.ITEMS;
     const item = findItem(state, entity, id);
@@ -91,6 +94,7 @@ export default {
   async incrementAdditional({ dispatch }, id) {
     dispatch("increment", { id, entity: Entity.ADDITIONAL });
   },
+
   async decrementAdditional({ state, dispatch }, id) {
     const entity = Entity.ADDITIONAL;
     const item = findItem(state, entity, id);
@@ -100,6 +104,7 @@ export default {
     item.count--;
     dispatch("update", { item, entity });
   },
+
   async changeCountAdditional({ state, dispatch }, { id, count }) {
     const entity = Entity.ADDITIONAL;
     const item = findItem(state, entity, id);
@@ -112,10 +117,21 @@ export default {
     item.count++;
     dispatch("update", { item, entity });
   },
+
   async update({ commit }, { item, entity }) {
     commit(UPDATE_ENTITY, { module, entity, value: item }, { root: true });
   },
+
   async delete({ commit }, { id, entity }) {
     commit(DELETE_ENTITY, { module, entity, id }, { root: true });
+  },
+
+  async clearCart({ commit, dispatch }) {
+    commit(
+      SET_ENTITY,
+      { module, entity: Entity.ITEMS, value: [] },
+      { root: true }
+    );
+    await dispatch("init");
   },
 };

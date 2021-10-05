@@ -38,8 +38,8 @@
 <script>
 import { AppRoute } from "../common/const/common";
 import validator from "../common/mixins/validator";
-import { getValidationErrorMessage } from "../common/utils/helpers";
 import { LoginValidations } from "../common/const/validation";
+import { getValidationErrorMessage } from "../common/utils/helpers/validation";
 
 export default {
   mixins: [validator],

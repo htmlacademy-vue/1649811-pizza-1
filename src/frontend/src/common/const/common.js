@@ -30,6 +30,7 @@ export const Message = {
   ADDRESS_ADD_SUCCESS: "Адрес добавлен",
   ADDRESS_EDIT_SUCCESS: "Адрес сохранен",
   ADDRESS_DELETE_SUCCESS: "Адрес удалён",
+  ORDER_DELETE_SUCCESS: "Заказ удалён",
 };
 
 /* eslint-disable */
@@ -37,8 +38,7 @@ export const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)
 /* eslint-enable */
 
 export const DefaultAddress = {
-  id: null,
-  name: "",
+  name: "Новый адрес",
   street: "",
   building: "",
   flat: " ",

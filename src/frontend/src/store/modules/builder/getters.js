@@ -2,7 +2,7 @@ import { Entity } from "./const";
 import {
   calculatePrice,
   calculateItemsPrice,
-} from "../../../common/utils/pizza";
+} from "../../../common/utils/helpers/calculate";
 
 export default {
   doughs: (state) => state.doughs,

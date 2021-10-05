@@ -1,3 +1,8 @@
+export const getIngredientImageName = (ingredient) => {
+  const image = ingredient.image.split(`/`).pop();
+  return image.split(`.`).reverse().pop();
+};
+
 export const normalizeIngredient = (ingredient) => {
   const imageName = getIngredientImageName(ingredient);
   return {
@@ -14,11 +19,6 @@ export const normalizeAdditional = (product) => {
   };
 };
 
-const getIngredientImageName = (ingredient) => {
-  const image = ingredient.image.split(`/`).pop();
-  return image.split(`.`).reverse().pop();
-};
-
 export const normalizeDough = (dough) => {
   return {
     ...dough,
@@ -29,14 +29,7 @@ export const normalizeDough = (dough) => {
   };
 };
 
-export const normalizeSize = (size) => {
-  return {
-    ...size,
-    class: getSizeClass(size),
-  };
-};
-
-const getSizeClass = (size) => {
+export const getSizeClass = (size) => {
   switch (size.name) {
     case "23 см":
       return "diameter__input diameter__input--small";
@@ -46,20 +39,9 @@ const getSizeClass = (size) => {
       return "diameter__input diameter__input--big";
   }
 };
-
-export const capitalize = (string) =>
-  `${string.charAt(0).toUpperCase()}${string.slice(1)}`;
-
-export const getValidationErrorMessage = (validations) => {
-  let errors = [];
-
-  Object.keys(validations).forEach((key) => {
-    const error = validations[key].error;
-    if (error.length) {
-      const message = `${validations[key].name} - ${error}`;
-      errors.push(message);
-    }
-  });
-
-  return errors.join(".<br>");
+export const normalizeSize = (size) => {
+  return {
+    ...size,
+    class: getSizeClass(size),
+  };
 };

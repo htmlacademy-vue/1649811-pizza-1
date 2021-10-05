@@ -6,7 +6,7 @@ import {
   normalizeDough,
   normalizeIngredient,
   normalizeSize,
-} from "../../../common/utils/helpers";
+} from "../../../common/utils/helpers/normalize";
 import { SET_ENTITY, UPDATE_ENTITY } from "../../mutation-types";
 import { MODULE, Entity } from "./const";
 import resources from "../../../common/enums/resources";

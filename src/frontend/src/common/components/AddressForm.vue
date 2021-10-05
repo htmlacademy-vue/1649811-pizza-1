@@ -17,7 +17,7 @@
             type="text"
             name="name"
             placeholder="Введите название адреса"
-            v-model="name"
+            v-model="editAddress.name"
             required
           />
         </label>
@@ -29,7 +29,7 @@
             type="text"
             name="street"
             placeholder="Введите название улицы"
-            v-model="street"
+            v-model="editAddress.street"
             required
           />
         </label>
@@ -41,7 +41,7 @@
             type="text"
             name="house"
             placeholder="Введите номер дома"
-            v-model="building"
+            v-model="editAddress.building"
             required
           />
         </label>
@@ -53,7 +53,7 @@
             type="text"
             name="apartment"
             placeholder="Введите № квартиры"
-            v-model="flat"
+            v-model="editAddress.flat"
           />
         </label>
       </div>
@@ -64,7 +64,7 @@
             type="text"
             name="comment"
             placeholder="Введите комментарий"
-            v-model="comment"
+            v-model="editAddress.comment"
           />
         </label>
       </div>
@@ -82,22 +82,18 @@
 <script>
 import { mapGetters } from "vuex";
 import validator from "../mixins/validator";
-import { getValidationErrorMessage } from "../utils/helpers";
 import resources from "../enums/resources";
 import { AddressValidations } from "../const/validation";
 import { DefaultAddress, Message } from "../const/common";
+import { getValidationErrorMessage } from "../utils/helpers/validation";
 
 export default {
   name: "AddressForm",
   mixins: [validator],
   data() {
     return {
-      name: this.address.name,
-      street: this.address.street,
-      building: this.address.building,
-      flat: this.address.flat,
-      comment: this.address.comment,
       validations: { ...AddressValidations },
+      editAddress: { ...this.address },
     };
   },
   props: {
@@ -130,7 +126,11 @@ export default {
     async submit() {
       if (
         !this.$validateFields(
-          { name: this.name, street: this.street, building: this.building },
+          {
+            name: this.editAddress.name,
+            street: this.editAddress.street,
+            building: this.editAddress.building,
+          },
           this.validations
         )
       ) {
@@ -139,34 +139,30 @@ export default {
         return;
       }
 
-      const address = {
-        name: this.name,
-        userId: this.user.id,
-        street: this.street,
-        building: this.building,
-        flat: this.flat,
-        comment: this.comment,
+      const notify = {
+        status: "error",
+        message: Message.SERVER_ERROR,
       };
 
-      if (this.address.id) {
+      if (this.editAddress.id) {
         try {
-          await this.$api[resources.ADDRESSES].put({
-            ...address,
-            id: this.addressId,
-          });
-          this.$notifier.success(Message.ADDRESS_EDIT_SUCCESS);
+          await this.$api[resources.ADDRESSES].put(this.editAddress);
+          notify.status = "success";
+          notify.message = Message.ADDRESS_EDIT_SUCCESS;
         } catch (e) {
-          this.$notifier.error(Message.SERVER_ERROR);
+          console.log(e);
         }
       } else {
         try {
-          await this.$api[resources.ADDRESSES].post(address);
-          this.$notifier.success(Message.ADDRESS_ADD_SUCCESS);
+          await this.$api[resources.ADDRESSES].post(this.editAddress);
+          notify.status = "success";
+          notify.message = Message.ADDRESS_ADD_SUCCESS;
         } catch (e) {
-          this.$notifier.error(Message.SERVER_ERROR);
+          console.log(e);
         }
       }
 
+      this.$notifier[notify.status](notify.message);
       this.$emit("closeForm");
     },
     async remove() {
