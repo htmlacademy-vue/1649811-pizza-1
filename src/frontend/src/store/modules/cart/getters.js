@@ -19,4 +19,7 @@ export default {
   getAdditional: (state) => {
     return state[Entity.ADDITIONAL];
   },
+  getMisc: (state) => {
+    return state[Entity.LOADED_ADDITIONAL];
+  },
 };

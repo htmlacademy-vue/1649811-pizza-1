@@ -16,10 +16,14 @@ const preparePizza = (pizza) => {
   };
 };
 
-const prepareMisc = (misc) => ({
-  miscId: misc.id,
-  quantity: misc.count,
-});
+const prepareMisc = (miscItems) => {
+  return miscItems
+    .filter((item) => +item.count !== 0)
+    .map((misc) => ({
+      miscId: misc.id,
+      quantity: misc.count,
+    }));
+};
 
 export const prepareOrder = (store) => {
   const pizzaItems = store.getters["cart/getItems"];
@@ -28,7 +32,7 @@ export const prepareOrder = (store) => {
 
   return {
     pizzas: pizzaItems.map((pizza) => preparePizza(pizza)),
-    misc: miscItems.map((misc) => prepareMisc(misc)),
+    misc: prepareMisc(miscItems),
     userId: user?.id || null,
   };
 };

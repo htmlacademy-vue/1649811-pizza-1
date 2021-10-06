@@ -30,7 +30,7 @@
 import { AppRoute } from "../../../common/const/common";
 import { mapGetters, mapActions } from "vuex";
 import Popup from "../../../common/components/AppPopup";
-import { prepareOrder } from "../../../common/utils/helpers/prepare-order";
+import { prepareOrder } from "../helpers/prepare-order";
 import resources from "../../../common/enums/resources";
 import validator from "../../../common/mixins/validator";
 import { AddressValidations } from "../../../common/const/validation";
