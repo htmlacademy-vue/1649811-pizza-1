@@ -17,20 +17,18 @@
 
           <div class="order__button">
             <button
-              :data-id="order.id"
               type="button"
               class="button button--border"
-              @click="handleOrderRemove"
+              @click="handleOrderRemove(order.id)"
             >
               Удалить
             </button>
           </div>
           <div class="order__button">
             <button
-              :data-id="order.id"
               type="button"
               class="button"
-              @click="handleOrderRepeat"
+              @click="handleOrderRepeat(order.id)"
             >
               Повторить
             </button>
@@ -74,7 +72,15 @@ export default {
   computed: {
     ...mapGetters({
       orders: "orders/getOrders",
+      isDataLoaded: "builder/isDataLoaded",
     }),
+  },
+  watch: {
+    async isDataLoaded(newValue) {
+      if (newValue) {
+        await this.loadOrders();
+      }
+    },
   },
   methods: {
     ...mapActions({
@@ -83,20 +89,18 @@ export default {
       loadOrderToCart: "orders/loadOrderToCart",
     }),
     printAddress,
-    async handleOrderRemove(evt) {
-      const { id } = evt.target.dataset;
-
+    async handleOrderRemove(id) {
       await this.removeOrder(id);
     },
-    async handleOrderRepeat(evt) {
-      const { id } = evt.target.dataset;
-
+    async handleOrderRepeat(id) {
       await this.loadOrderToCart(id);
       await this.$router.push(AppRoute.CART);
     },
   },
   async mounted() {
-    await this.loadOrders();
+    if (this.isDataLoaded) {
+      await this.loadOrders();
+    }
   },
 };
 </script>

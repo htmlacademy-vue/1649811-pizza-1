@@ -13,14 +13,14 @@
       <router-link
         :to="AppRoute.ORDERS"
         class="layout__link"
-        :active-class="'layout__link--active'"
+        active-class="layout__link--active"
       >
         История заказов
       </router-link>
       <router-link
         :to="AppRoute.PROFILE"
         class="layout__link"
-        :active-class="'layout__link--active'"
+        active-class="layout__link--active"
       >
         Мои данные
       </router-link>

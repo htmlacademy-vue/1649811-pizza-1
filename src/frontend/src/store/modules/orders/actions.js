@@ -57,12 +57,8 @@ export default {
     }
   },
 
-  async loadOrders({ commit, dispatch, rootGetters }) {
+  async loadOrders({ commit, rootGetters }) {
     const data = await this.$api[resources.ORDERS].get();
-
-    if (!rootGetters["builder/isDataLoaded"]) {
-      await dispatch("builder/loadData", { root: true });
-    }
 
     const orders = await Promise.all(
       data.map(async (order) => {
