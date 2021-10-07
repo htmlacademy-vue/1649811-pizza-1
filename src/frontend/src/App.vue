@@ -13,8 +13,10 @@ export default {
   name: "App",
 
   async mounted() {
-    await this.$store.dispatch("init");
-    await this.$store.dispatch("auth/setAuth");
+    await Promise.all([
+      this.$store.dispatch("init"),
+      this.$store.dispatch("auth/setAuth"),
+    ]);
   },
   components: {
     AppLayout,

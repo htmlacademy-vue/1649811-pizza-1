@@ -11,4 +11,5 @@ export const Entity = {
   LOADED_INGREDIENTS: "loadedIngredients",
   SIZES: "sizes",
   SAUCES: "sauces",
+  IS_DATA_LOADED: "isDataLoaded",
 };

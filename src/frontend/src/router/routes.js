@@ -5,7 +5,7 @@ import Orders from "../views/Orders";
 import Profile from "../views/Profile";
 import IndexHome from "../views/Index";
 import LoginModal from "../views/LoginModal";
-import { addresses, auth, user } from "../middlewares";
+import { addresses, auth, isLogged, user } from "../middlewares";
 
 export default [
   {
@@ -17,6 +17,9 @@ export default [
         path: AppRoute.LOGIN_INDEX,
         name: "LoginIndex",
         component: LoginModal,
+        meta: {
+          middlewares: [isLogged],
+        },
       },
     ],
   },
@@ -32,7 +35,10 @@ export default [
     path: AppRoute.LOGIN,
     name: "Login",
     component: Login,
-    // meta: { layout: "AppLayoutLogin" },
+    meta: {
+      layout: "AppLayoutLogin",
+      middlewares: [isLogged],
+    },
   },
   {
     path: AppRoute.CART,

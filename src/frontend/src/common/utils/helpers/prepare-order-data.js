@@ -30,9 +30,9 @@ export const preparePizza = async (
   const pizza = {
     name,
     count: quantity,
-    dough: dough.find((i) => i.id === +doughId),
-    size: sizes.find((i) => i.id === +sizeId),
-    sauce: sauces.find((i) => i.id === +sauceId),
+    dough: dough.find((i) => +i.id === +doughId),
+    size: sizes.find((i) => +i.id === +sizeId),
+    sauce: sauces.find((i) => +i.id === +sauceId),
     ingredients: findIngredients(orderIngredients, ingredients),
   };
 

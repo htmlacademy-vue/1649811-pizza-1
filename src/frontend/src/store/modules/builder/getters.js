@@ -5,6 +5,7 @@ import {
 } from "../../../common/utils/helpers/calculate";
 
 export default {
+  isDataLoaded: (state) => state[Entity.IS_DATA_LOADED],
   doughs: (state) => state.doughs,
   ingredients: (state) => state[Entity.INGREDIENTS],
   sauces: (state) => state.sauces,

@@ -20,10 +20,12 @@ const state = () => ({
 });
 
 const actions = {
-  async init({ dispatch }) {
-    await dispatch("builder/loadData");
-    await dispatch("cart/loadData");
+  async init({ dispatch, getters }) {
+    if (!getters["builder/isDataLoaded"]) {
+      await dispatch("builder/loadData");
+    }
 
+    await dispatch("cart/loadData");
     await dispatch("builder/init");
     await dispatch("cart/init");
   },

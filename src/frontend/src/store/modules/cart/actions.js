@@ -69,7 +69,6 @@ export default {
       };
     });
 
-    console.log(data);
     commit(
       SET_ENTITY,
       { module, entity: Entity.ADDITIONAL, value: data },

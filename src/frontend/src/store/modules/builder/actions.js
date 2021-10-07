@@ -14,11 +14,19 @@ import resources from "../../../common/enums/resources";
 const module = MODULE;
 
 export default {
-  async loadData({ dispatch }) {
-    await dispatch("loadDough");
-    await dispatch("loadSizes");
-    await dispatch("loadSauces");
-    await dispatch("loadedIngredients");
+  async loadData({ dispatch, commit }) {
+    await Promise.all([
+      dispatch("loadDough"),
+      dispatch("loadSizes"),
+      dispatch("loadSauces"),
+      dispatch("loadedIngredients"),
+    ]);
+
+    commit(
+      SET_ENTITY,
+      { module, entity: Entity.IS_DATA_LOADED, value: true },
+      { root: true }
+    );
   },
 
   async loadedIngredients({ commit }) {

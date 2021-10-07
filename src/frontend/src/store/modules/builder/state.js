@@ -12,4 +12,5 @@ export default {
   [Entity.PIZZA_NAME]: "",
   [Entity.PIZZA_ID]: null,
   [Entity.PIZZA_COUNT]: 1,
+  [Entity.IS_DATA_LOADED]: false,
 };
