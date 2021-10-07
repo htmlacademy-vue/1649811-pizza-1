@@ -6,25 +6,26 @@ const module = MODULE;
 
 export default {
   async setAuth({ dispatch, commit }) {
-    if (this.$jwt.getToken()) {
-      this.$api.auth.setAuthHeader();
+    const token = this.$jwt.getToken();
+    if (token) {
+      this.$api.auth.setAuthHeader(token);
       const value = await dispatch("getMe");
-      commit(
-        SET_ENTITY,
-        { module, entity: Entity.IS_AUTHENTICATED, value },
-        { root: true }
-      );
-
-      return true;
+      if (value) {
+        commit(
+          SET_ENTITY,
+          { module, entity: Entity.IS_AUTHENTICATED, value },
+          { root: true }
+        );
+        return true;
+      }
     }
-
     return false;
   },
 
   async login({ commit, dispatch }, credentials) {
-    const data = await this.$api.auth.login(credentials);
-    this.$jwt.saveToken(data.token);
-    this.$api.auth.setAuthHeader();
+    const { token } = await this.$api.auth.login(credentials);
+    this.$jwt.saveToken(token);
+    this.$api.auth.setAuthHeader(token);
     commit(
       SET_ENTITY,
       { module, entity: Entity.IS_AUTHENTICATED, value: true },
@@ -38,7 +39,7 @@ export default {
       await this.$api.auth.logout();
     }
     this.$jwt.destroyToken();
-    this.$api.auth.setAuthHeader();
+    this.$api.auth.setAuthHeader(null);
 
     commit(
       SET_ENTITY,

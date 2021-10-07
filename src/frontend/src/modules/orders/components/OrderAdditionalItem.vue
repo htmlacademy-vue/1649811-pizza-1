@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { getStringProductPrice } from "../helpers/common";
+import { getStringProductPrice } from "../../../common/utils/helpers/common";
 
 export default {
   name: "OrderAdditionalItem",

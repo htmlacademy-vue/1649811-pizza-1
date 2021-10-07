@@ -1,4 +1,4 @@
-import { calculatePizzaPrice } from "../../../common/utils/helpers/calculate";
+import { calculatePizzaPrice } from "./calculate";
 
 const findIngredients = (orderIngredients, ingredients) => {
   return orderIngredients.map((item) => {
@@ -42,13 +42,6 @@ export const preparePizza = async (
     ...pizza,
     price,
   };
-};
-
-export const prepareAddress = async (orderAddress) => {
-  const { street, building, flat } = orderAddress;
-
-  const flatString = flat.trim() ? `, кв. ${flat}` : "";
-  return `ул. ${street}, д. ${building}${flatString}`;
 };
 
 export const prepareAdditional = async (loadedAdditional, orderMisc) => {

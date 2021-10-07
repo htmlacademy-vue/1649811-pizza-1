@@ -36,8 +36,8 @@ export default {
     );
   },
 
-  async addPizza({ commit, state, rootGetters }) {
-    const pizza = rootGetters["builder/pizza"];
+  async addPizza({ commit, state, rootGetters }, orderPizza = null) {
+    const pizza = orderPizza ? orderPizza : rootGetters["builder/pizza"];
     const index = state.items.findIndex(({ id }) => id === pizza.id);
     if (~index) {
       commit(
@@ -55,6 +55,24 @@ export default {
     commit(
       ADD_ENTITY,
       { module, entity: Entity.ITEMS, value: item },
+      { root: true }
+    );
+  },
+
+  async setAdditional({ commit, state }, additional) {
+    const data = state[Entity.ADDITIONAL].map((item) => {
+      const product = additional.find((i) => +i.id === +item.id);
+      const count = product ? product.count : 0;
+      return {
+        ...item,
+        count,
+      };
+    });
+
+    console.log(data);
+    commit(
+      SET_ENTITY,
+      { module, entity: Entity.ADDITIONAL, value: data },
       { root: true }
     );
   },

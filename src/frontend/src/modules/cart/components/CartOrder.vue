@@ -5,14 +5,15 @@
         <span class="cart-form__label">Получение заказа:</span>
 
         <select class="select" @change="handleSelectChange">
-          <option selected value="null">Заберу сам</option>
+          <option :selected="!address" value="null">Заберу сам</option>
           <option value="0">Новый адрес</option>
           <option
-            v-for="address in addresses"
-            :key="address.id"
-            :value="address.id"
+            v-for="addressItem in addresses"
+            :key="addressItem.id"
+            :value="addressItem.id"
+            :selected="address && address.name === addressItem.name"
           >
-            {{ address.name }}
+            {{ addressItem.name }}
           </option>
         </select>
       </label>
@@ -80,6 +81,9 @@ export default {
       isNewAddress: false,
       address: null,
     };
+  },
+  created() {
+    this.address = this.$store.getters["orders/getAddress"];
   },
   computed: {
     ...mapGetters({

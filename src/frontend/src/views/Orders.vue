@@ -20,13 +20,18 @@
               :data-id="order.id"
               type="button"
               class="button button--border"
-              @click="handleRemove"
+              @click="handleOrderRemove"
             >
               Удалить
             </button>
           </div>
           <div class="order__button">
-            <button :data-id="order.id" type="button" class="button">
+            <button
+              :data-id="order.id"
+              type="button"
+              class="button"
+              @click="handleOrderRepeat"
+            >
               Повторить
             </button>
           </div>
@@ -49,7 +54,7 @@
         </ul>
 
         <p v-if="order.address" class="order__address">
-          Адрес доставки: {{ order.address }}
+          Адрес доставки: {{ printAddress(order.address) }}
         </p>
       </section>
     </div>
@@ -57,87 +62,41 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import AppSideBar from "../layouts/AppSideBar";
-import resources from "../common/enums/resources";
-import { Message } from "../common/const/common";
-import {
-  prepareAdditional,
-  prepareAddress,
-  preparePizza,
-} from "../modules/order/helpers/prepare-order-data";
-import OrderPizzaItem from "../modules/order/components/OrderPizzaItem";
-import OrderAdditionalItem from "../modules/order/components/OrderAdditionalItem";
+import { AppRoute } from "../common/const/common";
+import OrderPizzaItem from "../modules/orders/components/OrderPizzaItem";
+import OrderAdditionalItem from "../modules/orders/components/OrderAdditionalItem";
+import { printAddress } from "../common/utils/helpers/common";
 
 export default {
-  data() {
-    return {
-      orders: [],
-    };
-  },
   components: { OrderAdditionalItem, OrderPizzaItem, AppSideBar },
-  methods: {
-    async handleRemove(evt) {
-      const { id } = evt.target.dataset;
-      try {
-        await this.$api[resources.ORDERS].delete(id);
-        this.$notifier.success(Message.ORDER_DELETE_SUCCESS);
-        this.orders = this.orders.filter((item) => item.id !== +id);
-      } catch (e) {
-        this.$notifier.error(Message.SERVER_ERROR);
-      }
-    },
-  },
   computed: {
     ...mapGetters({
-      sauces: "builder/sauces",
-      ingredients: "builder/ingredients",
-      dough: "builder/doughs",
-      sizes: "builder/sizes",
-      additional: "cart/getMisc",
+      orders: "orders/getOrders",
     }),
   },
+  methods: {
+    ...mapActions({
+      loadOrders: "orders/loadOrders",
+      removeOrder: "orders/removeOrder",
+      loadOrderToCart: "orders/loadOrderToCart",
+    }),
+    printAddress,
+    async handleOrderRemove(evt) {
+      const { id } = evt.target.dataset;
+
+      await this.removeOrder(id);
+    },
+    async handleOrderRepeat(evt) {
+      const { id } = evt.target.dataset;
+
+      await this.loadOrderToCart(id);
+      await this.$router.push(AppRoute.CART);
+    },
+  },
   async mounted() {
-    const orders = await this.$api[resources.ORDERS].get();
-
-    this.orders = await Promise.all(
-      orders.map(async (order) => {
-        const { id, orderPizzas, orderAddress, orderMisc = null } = order;
-        let orderPrice = 0;
-
-        const { additional, additionalPrice } = await prepareAdditional(
-          this.additional,
-          orderMisc
-        );
-        orderPrice += additionalPrice;
-
-        const pizzas = await Promise.all(
-          orderPizzas.map(async (orderPizza) => {
-            const pizza = await preparePizza(
-              orderPizza,
-              this.sauces,
-              this.dough,
-              this.sizes,
-              this.ingredients
-            );
-            orderPrice += pizza.price * pizza.count;
-            return pizza;
-          })
-        );
-
-        const address = orderAddress
-          ? await prepareAddress(orderAddress)
-          : null;
-
-        return {
-          id,
-          address,
-          pizzas,
-          additional,
-          price: orderPrice,
-        };
-      })
-    );
+    await this.loadOrders();
   },
 };
 </script>

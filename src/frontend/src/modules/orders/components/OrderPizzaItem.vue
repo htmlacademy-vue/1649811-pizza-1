@@ -8,7 +8,7 @@
 
 <script>
 import ProductListItem from "../../../common/components/ProductListItem";
-import { getStringProductPrice } from "../helpers/common";
+import { getStringProductPrice } from "../../../common/utils/helpers/common";
 
 export default {
   name: "OrderPizzaItem",
@@ -20,12 +20,5 @@ export default {
     },
   },
   methods: { getStringProductPrice },
-  // computed: {
-  //   price() {
-  //     return +this.pizza.count === 1
-  //       ? this.pizza.price
-  //       : `${this.pizza.count}x${this.pizza.price}`;
-  //   },
-  // },
 };
 </script>

@@ -5,7 +5,7 @@ import Orders from "../views/Orders";
 import Profile from "../views/Profile";
 import IndexHome from "../views/Index";
 import LoginModal from "../views/LoginModal";
-import { addresses, auth } from "../middlewares";
+import { addresses, auth, user } from "../middlewares";
 
 export default [
   {
@@ -39,7 +39,7 @@ export default [
     name: "Cart",
     component: Cart,
     meta: {
-      middlewares: [addresses],
+      middlewares: [user, addresses],
     },
   },
   {
