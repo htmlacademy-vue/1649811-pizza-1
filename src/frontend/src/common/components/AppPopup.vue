@@ -15,9 +15,10 @@
   </Modal>
 </template>
 <script>
-import Modal from "./Modal";
+import Modal from "./AppModal";
 
 export default {
+  name: "AppPopup",
   components: { Modal },
   methods: {
     handleClose() {

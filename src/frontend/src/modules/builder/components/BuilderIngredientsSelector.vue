@@ -40,7 +40,7 @@
 <script>
 import ItemCounter from "../../../common/components/ItemCounter";
 import AppDrag from "../../../common/components/AppDrag";
-import { INGREDIENT_MAX_COUNT } from "../../../common/constants";
+import { INGREDIENT_MAX_COUNT } from "../../../common/const/common";
 import { mapGetters, mapActions } from "vuex";
 
 export default {

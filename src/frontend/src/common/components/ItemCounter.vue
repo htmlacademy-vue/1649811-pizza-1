@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { INGREDIENT_MAX_COUNT, INGREDIENT_MIN_COUNT } from "../constants";
+import { INGREDIENT_MAX_COUNT, INGREDIENT_MIN_COUNT } from "../const/common";
 
 export default {
   name: "ItemCounter",

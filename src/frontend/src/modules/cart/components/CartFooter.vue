@@ -2,7 +2,7 @@
   <section class="footer">
     <div class="footer__more">
       <router-link
-        :to="builderLink"
+        :to="AppRoute.MAIN"
         class="button button--border button--arrow"
       >
         Хочу еще одну
@@ -27,31 +27,84 @@
   </section>
 </template>
 <script>
-import { AppRoute } from "../../../common/constants";
-import { mapGetters } from "vuex";
-import Popup from "../../../common/components/Popup";
+import { AppRoute } from "../../../common/const/common";
+import { mapGetters, mapActions } from "vuex";
+import Popup from "../../../common/components/AppPopup";
+import { prepareOrder } from "../helpers/prepare-order";
+import resources from "../../../common/enums/resources";
+import validator from "../../../common/mixins/validator";
+import { AddressValidations } from "../../../common/const/validation";
+import { getValidationErrorMessage } from "../../../common/utils/helpers/validation";
 
 export default {
   name: "CartFooter",
   data() {
     return {
-      builderLink: AppRoute.MAIN,
+      AppRoute,
       isShowPopup: false,
     };
   },
+  mixins: [validator],
   components: { Popup },
   computed: {
-    ...mapGetters("cart", {
-      cartPrice: "price",
+    ...mapGetters({
+      cartPrice: "cart/price",
+      user: "auth/getUser",
     }),
   },
   methods: {
-    handleSubmit() {
-      console.log("submit");
+    ...mapActions({
+      clearCart: "cart/clearCart",
+      clearAddress: "orders/clearAddress",
+    }),
+    validateAddress(address) {
+      if (!address) {
+        return true;
+      }
+      const validations = { ...AddressValidations };
+      delete validations.name;
+      if (
+        !this.$validateFields(
+          { street: address.street, building: address.building },
+          validations
+        )
+      ) {
+        const errorMessage = getValidationErrorMessage(validations, "АДРЕС");
+        this.$notifier.error(errorMessage);
+        return false;
+      }
+
+      return true;
+    },
+    async handleSubmit() {
+      const storedAddress = this.$store.state.orders.address;
+      if (!this.validateAddress(storedAddress)) {
+        return;
+      }
+
+      const address = storedAddress ? { address: storedAddress } : {};
+      const order = {
+        ...prepareOrder(this.$store),
+        ...address,
+      };
+
+      try {
+        await this.$api[resources.ORDERS].post(order);
+      } catch (e) {
+        console.log(e);
+      }
+
       this.isShowPopup = true;
     },
-    handleClose() {
+    async handleClose() {
       this.isShowPopup = false;
+
+      const route = this.user ? AppRoute.ORDERS : AppRoute.MAIN;
+      await Promise.all([
+        this.$router.push(route),
+        this.clearCart(),
+        this.clearAddress(),
+      ]);
     },
   },
 };

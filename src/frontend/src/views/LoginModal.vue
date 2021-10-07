@@ -4,7 +4,7 @@
   </Modal>
 </template>
 <script>
-import Modal from "../common/components/Modal";
+import Modal from "../common/components/AppModal";
 import Login from "./Login";
 
 export default {

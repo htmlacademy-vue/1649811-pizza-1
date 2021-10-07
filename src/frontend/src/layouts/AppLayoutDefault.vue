@@ -1,5 +1,6 @@
 <template>
   <div class="full-height">
+    <AppNotifications />
     <AppLayoutHeader />
     <slot />
   </div>

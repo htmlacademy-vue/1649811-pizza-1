@@ -1,4 +1,4 @@
-import { calculateItemsPrice } from "../../../common/utils/pizza";
+import { calculateItemsPrice } from "../../../common/utils/helpers/calculate";
 import { Entity } from "./const";
 
 export default {
@@ -18,5 +18,8 @@ export default {
   },
   getAdditional: (state) => {
     return state[Entity.ADDITIONAL];
+  },
+  getMisc: (state) => {
+    return state[Entity.LOADED_ADDITIONAL];
   },
 };

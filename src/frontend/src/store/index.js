@@ -6,20 +6,49 @@ import {
   ADD_ENTITY,
   DELETE_ENTITY,
   UPDATE_ENTITY,
+  ADD_NOTIFICATION,
+  DELETE_NOTIFICATION,
 } from "./mutation-types";
+import VuexPlugins from "../plugins/vuex-plugins";
+import { uniqueId } from "lodash";
+import { MESSAGE_LIVE_TIME } from "../common/const/common";
 
 Vue.use(Vuex);
 
-const state = () => ({});
+const state = () => ({
+  notifications: [],
+});
 
 const actions = {
   async init({ dispatch }) {
-    dispatch("builder/init");
-    dispatch("cart/init");
+    await dispatch("cart/loadData");
+    await dispatch("builder/loadData");
+    await dispatch("builder/init");
+    await dispatch("cart/init");
+  },
+
+  async createNotification({ commit }, { ...notification }) {
+    const uniqueNotification = {
+      ...notification,
+      id: uniqueId(),
+    };
+    commit(ADD_NOTIFICATION, uniqueNotification);
+    setTimeout(
+      () => commit(DELETE_NOTIFICATION, uniqueNotification.id),
+      MESSAGE_LIVE_TIME
+    );
   },
 };
 
 const mutations = {
+  [ADD_NOTIFICATION](state, notification) {
+    state.notifications = [...state.notifications, notification];
+  },
+  [DELETE_NOTIFICATION](state, id) {
+    state.notifications = state.notifications.filter(
+      (notification) => notification.id !== id
+    );
+  },
   [SET_ENTITY](state, { module, entity, value }) {
     module ? (state[module][entity] = value) : (state[entity] = value);
   },
@@ -70,4 +99,5 @@ export default new Vuex.Store({
   mutations,
   actions,
   modules,
+  plugins: [VuexPlugins],
 });
