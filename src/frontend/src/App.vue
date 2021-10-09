@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <AppLayout>
-      <router-view />
+      <transition v-if="isShowTransition" name="slide" appear>
+        <router-view />
+      </transition>
+      <router-view v-else />
     </AppLayout>
   </div>
 </template>
@@ -39,12 +42,16 @@ export default {
       };
       return routes[this.$route.name] || {};
     },
+
+    isShowTransition() {
+      return this.$route.name !== "Profile" && this.$route.name !== "Orders";
+    },
   },
 };
 </script>
 
 <style lang="scss">
-@import "~@/assets/scss/app-min";
+@import "~@/assets/scss/app";
 #app {
   min-height: 100vh;
 }

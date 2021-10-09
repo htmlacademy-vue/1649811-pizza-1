@@ -26,7 +26,9 @@
       </router-link>
     </div>
 
-    <slot />
+    <transition name="slide" appear>
+      <slot />
+    </transition>
   </main>
 </template>
 
