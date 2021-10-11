@@ -44,12 +44,7 @@ export default {
     },
 
     isShowTransition() {
-      return (
-        this.$route.name !== "Profile" &&
-        this.$route.name !== "Orders" &&
-        this.$route.name !== "LoginIndex" &&
-        this.$route.name !== "Login"
-      );
+      return this.$route.name !== "Profile" && this.$route.name !== "Orders";
     },
   },
 };

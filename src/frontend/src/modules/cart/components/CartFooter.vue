@@ -21,7 +21,7 @@
       </button>
     </div>
 
-    <transition appear name="popup">
+    <transition name="popup">
       <Popup v-if="isShowPopup" @close="handleClose" />
     </transition>
   </section>
@@ -106,20 +106,22 @@ export default {
           this.clearCart(),
           this.clearAddress(),
         ]);
-      }, 200);
+      }, 100);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.popup-enter-active,
+.popup-enter-active {
+  transition: opacity 0.3s ease;
+}
+
 .popup-leave-active {
-  transition: all 0.5s ease;
+  transition: opacity 0.5s ease;
 }
 .popup-enter,
 .popup-leave-to {
-  transform: scale(0);
   opacity: 0;
 }
 </style>

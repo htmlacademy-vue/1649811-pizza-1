@@ -1,11 +1,7 @@
 <template>
   <div class="modal-mask">
     <div class="modal-wrapper">
-      <div class="modal-container">
-        <div class="modal-body">
-          <slot />
-        </div>
-      </div>
+      <slot />
     </div>
   </div>
 </template>
@@ -26,20 +22,5 @@
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
-}
-
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
-
-.modal-body {
-  margin: 20px 0;
 }
 </style>
