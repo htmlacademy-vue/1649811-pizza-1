@@ -21,9 +21,9 @@
       </button>
     </div>
 
-    <template v-if="isShowPopup">
-      <Popup @close="handleClose" />
-    </template>
+    <transition appear name="popup">
+      <Popup v-if="isShowPopup" @close="handleClose" />
+    </transition>
   </section>
 </template>
 <script>
@@ -98,14 +98,28 @@ export default {
     },
     async handleClose() {
       this.isShowPopup = false;
-
       const route = this.user ? AppRoute.ORDERS : AppRoute.MAIN;
-      await Promise.all([
-        this.$router.push(route),
-        this.clearCart(),
-        this.clearAddress(),
-      ]);
+
+      setTimeout(async () => {
+        await Promise.all([
+          this.$router.push(route),
+          this.clearCart(),
+          this.clearAddress(),
+        ]);
+      }, 200);
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.popup-enter-active,
+.popup-leave-active {
+  transition: all 0.5s ease;
+}
+.popup-enter,
+.popup-leave-to {
+  transform: scale(0);
+  opacity: 0;
+}
+</style>

@@ -1,15 +1,13 @@
 <template>
-  <transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
-          <div class="modal-body">
-            <slot />
-          </div>
+  <div class="modal-mask">
+    <div class="modal-wrapper">
+      <div class="modal-container">
+        <div class="modal-body">
+          <slot />
         </div>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -43,19 +41,5 @@
 
 .modal-body {
   margin: 20px 0;
-}
-
-.modal-enter {
-  opacity: 0;
-}
-
-.modal-leave-active {
-  opacity: 0;
-}
-
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 </style>
