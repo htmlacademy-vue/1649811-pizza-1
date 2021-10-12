@@ -6,16 +6,17 @@ import Profile from "../views/Profile";
 import IndexHome from "../views/Index";
 import LoginModal from "../views/LoginModal";
 import { addresses, auth, isLogged, user } from "../middlewares";
+import { RouteName } from "../common/const/common";
 
 export default [
   {
     path: AppRoute.MAIN,
-    name: "IndexHome",
+    name: RouteName.HOME,
     component: IndexHome,
     children: [
       {
         path: AppRoute.LOGIN_INDEX,
-        name: "LoginIndex",
+        name: RouteName.LOGIN_INDEX,
         component: LoginModal,
         meta: {
           middlewares: [isLogged],
@@ -24,16 +25,16 @@ export default [
     ],
   },
   {
-    path: AppRoute.PROFILE,
-    name: "Profile",
-    component: Profile,
+    path: AppRoute.CART,
+    name: RouteName.CART,
+    component: Cart,
     meta: {
-      middlewares: [auth, addresses],
+      middlewares: [user, addresses],
     },
   },
   {
     path: AppRoute.LOGIN,
-    name: "Login",
+    name: RouteName.LOGIN,
     component: Login,
     meta: {
       layout: "AppLayoutLogin",
@@ -41,16 +42,16 @@ export default [
     },
   },
   {
-    path: AppRoute.CART,
-    name: "Cart",
-    component: Cart,
+    path: AppRoute.PROFILE,
+    name: RouteName.PROFILE,
+    component: Profile,
     meta: {
-      middlewares: [user, addresses],
+      middlewares: [auth, addresses],
     },
   },
   {
     path: AppRoute.ORDERS,
-    name: "Orders",
+    name: RouteName.ORDERS,
     component: Orders,
     meta: {
       middlewares: [auth],

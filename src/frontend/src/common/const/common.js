@@ -49,3 +49,12 @@ export const Transition = {
   SLIDE: "slide",
   SLIDE_LOGIN: "login-slide",
 };
+
+export const RouteName = {
+  HOME: "Home",
+  LOGIN: "Login",
+  LOGIN_INDEX: "LoginIndex",
+  PROFILE: "Profile",
+  CART: "Cart",
+  ORDERS: "Orders",
+};

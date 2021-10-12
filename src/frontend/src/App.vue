@@ -11,7 +11,7 @@
 
 <script>
 import AppLayout from "./layouts/AppLayout";
-import { Transition } from "./common/const/common";
+import { Transition, RouteName } from "./common/const/common";
 
 export default {
   name: "App",
@@ -33,14 +33,14 @@ export default {
   watch: {
     $route(to, from) {
       this.isShowTransition =
-        from.name === "LoginIndex"
+        from.name === RouteName.LOGIN_INDEX
           ? false
-          : to.name !== "Profile" &&
-            to.name !== "Orders" &&
-            to.name !== "LoginIndex";
+          : to.name !== RouteName.PROFILE &&
+            to.name !== RouteName.ORDERS &&
+            to.name !== RouteName.LOGIN_INDEX;
 
       this.transitionName =
-        to.name === "Login" ? Transition.SLIDE_LOGIN : Transition.SLIDE;
+        to.name === RouteName.LOGIN ? Transition.SLIDE_LOGIN : Transition.SLIDE;
     },
   },
 };
