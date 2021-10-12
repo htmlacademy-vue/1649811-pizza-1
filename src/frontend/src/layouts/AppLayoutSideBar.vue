@@ -1,10 +1,13 @@
 <template>
-  <div class="full-height">
-    <AppHeader />
-    <AppNotifications />
-
+  <AppLayoutDefault>
     <AppSideBar>
       <slot />
     </AppSideBar>
-  </div>
+  </AppLayoutDefault>
 </template>
+<script>
+import AppLayoutDefault from "./AppLayoutDefault";
+export default {
+  components: { AppLayoutDefault },
+};
+</script>
