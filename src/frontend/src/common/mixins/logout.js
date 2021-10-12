@@ -1,4 +1,5 @@
-import { AppRoute, Message } from "../const/common";
+import { Message } from "../const/common";
+import { AppRoute } from "../const/route";
 
 export default {
   methods: {

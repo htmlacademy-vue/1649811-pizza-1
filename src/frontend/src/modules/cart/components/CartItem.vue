@@ -16,7 +16,7 @@
 <script>
 import CartItemCounter from "./CartItemCounter";
 import CartButtonChange from "./CartButtonChange";
-import ProductListItem from "../../../common/components/ProductListItem";
+import ProductListItem from "../../../common/components/AppProductListItem";
 
 export default {
   name: "CartItem",

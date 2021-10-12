@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import RadioButton from "../../../common/components/RadioButton";
+import RadioButton from "../../../common/components/AppRadioButton";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -45,12 +45,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.content__dough {
-  width: 527px;
-  margin-top: 15px;
-  margin-right: auto;
-  margin-bottom: 15px;
-}
-</style>

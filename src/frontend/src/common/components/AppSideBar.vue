@@ -25,15 +25,12 @@
         Мои данные
       </router-link>
     </div>
-
-    <transition name="slide" appear>
-      <slot />
-    </transition>
+    <slot />
   </main>
 </template>
 
 <script>
-import { AppRoute } from "../common/const/common";
+import { AppRoute } from "../const/route";
 
 export default {
   name: "AppSideBar",

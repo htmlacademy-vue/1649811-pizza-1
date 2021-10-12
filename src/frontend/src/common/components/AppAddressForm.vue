@@ -154,7 +154,10 @@ export default {
         }
       } else {
         try {
-          await this.$api[resources.ADDRESSES].post(this.editAddress);
+          const address = this.user
+            ? { ...this.editAddress, userId: this.user.id }
+            : this.editAddress;
+          await this.$api[resources.ADDRESSES].post(address);
           notify.status = "success";
           notify.message = Message.ADDRESS_ADD_SUCCESS;
         } catch (e) {

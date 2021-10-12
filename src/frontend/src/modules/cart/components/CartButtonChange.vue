@@ -10,7 +10,7 @@
 </template>
 <script>
 import { mapActions } from "vuex";
-import { AppRoute } from "../../../common/const/common";
+import { AppRoute } from "../../../common/const/route";
 
 export default {
   name: "CartButtonChange",

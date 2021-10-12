@@ -75,9 +75,11 @@ export default {
     }
   },
 
-  async setUserAddresses({ commit }) {
+  async loadUserAddresses({ commit, getters }) {
     try {
-      const value = await this.$api[resources.ADDRESSES].get();
+      const data = await this.$api[resources.ADDRESSES].get();
+      const { id } = getters.getUser;
+      const value = data.filter((item) => item.userId === id);
       commit(
         SET_ENTITY,
         { module, entity: Entity.ADDRESSES, value },

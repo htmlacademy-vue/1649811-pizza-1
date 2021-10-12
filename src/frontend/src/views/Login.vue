@@ -36,10 +36,10 @@
 </template>
 
 <script>
-import { AppRoute } from "../common/const/common";
 import validator from "../common/mixins/validator";
 import { LoginValidations } from "../common/const/validation";
 import { getValidationErrorMessage } from "../common/utils/helpers/validation";
+import { AppRoute } from "../common/const/route";
 
 export default {
   mixins: [validator],

@@ -1,5 +1,5 @@
-import { AppRoute } from "../common/const/common";
 import { Entity } from "../store/modules/auth/const";
+import { AppRoute } from "../common/const/route";
 
 const auth = async ({ next, store, nextMiddleware }) => {
   if (!store.state.auth[Entity.IS_AUTHENTICATED]) {

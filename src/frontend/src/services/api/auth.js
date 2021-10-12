@@ -1,6 +1,6 @@
 import axios from "../../plugins/axios";
-import { ApiRoute } from "../../common/const/common";
 import { BaseApiService } from "./base";
+import { ApiRoute } from "../../common/const/route";
 
 export default class AuthApiService extends BaseApiService {
   constructor(notifier) {

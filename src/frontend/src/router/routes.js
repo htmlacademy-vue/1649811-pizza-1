@@ -1,12 +1,12 @@
-import { AppRoute } from "../common/const/common";
 import Cart from "../views/Cart";
 import Login from "../views/Login";
 import Orders from "../views/Orders";
 import Profile from "../views/Profile";
 import IndexHome from "../views/Index";
 import LoginModal from "../views/LoginModal";
+import { LayoutName } from "../common/const/common";
+import { AppRoute, RouteName } from "../common/const/route";
 import { addresses, auth, isLogged, user } from "../middlewares";
-import { RouteName } from "../common/const/common";
 
 export default [
   {
@@ -37,7 +37,7 @@ export default [
     name: RouteName.LOGIN,
     component: Login,
     meta: {
-      layout: "AppLayoutLogin",
+      layout: LayoutName.LOGIN,
       middlewares: [isLogged],
     },
   },
@@ -46,6 +46,7 @@ export default [
     name: RouteName.PROFILE,
     component: Profile,
     meta: {
+      layout: LayoutName.SIDE_BAR,
       middlewares: [auth, addresses],
     },
   },
@@ -54,6 +55,7 @@ export default [
     name: RouteName.ORDERS,
     component: Orders,
     meta: {
+      layout: LayoutName.SIDE_BAR,
       middlewares: [auth],
     },
   },

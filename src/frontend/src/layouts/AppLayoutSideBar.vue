@@ -1,7 +1,10 @@
 <template>
   <div class="full-height">
-    <AppNotifications />
     <AppHeader />
-    <slot />
+    <AppNotifications />
+
+    <AppSideBar>
+      <slot />
+    </AppSideBar>
   </div>
 </template>

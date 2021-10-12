@@ -3,18 +3,20 @@
     <slot name="pizzaName" />
 
     <div class="content__constructor">
-      <AppDrop @drop="addIngredient">
-        <div class="pizza" :class="pizzaFoundationClass">
-          <div class="pizza__wrapper">
-            <transition-group name="ingredients">
-              <div
-                v-for="ingredient in pizza.ingredients"
-                class="pizza__filling"
-                :key="ingredient.id"
-                :class="getFillingClass(ingredient)"
-              />
-            </transition-group>
-          </div>
+      <AppDrop
+        class="pizza"
+        :class="pizzaFoundationClass"
+        @drop="addIngredient"
+      >
+        <div class="pizza__wrapper">
+          <transition-group name="ingredients">
+            <div
+              v-for="ingredient in pizza.ingredients"
+              class="pizza__filling"
+              :key="ingredient.id"
+              :class="getFillingClass(ingredient)"
+            />
+          </transition-group>
         </div>
       </AppDrop>
     </div>
