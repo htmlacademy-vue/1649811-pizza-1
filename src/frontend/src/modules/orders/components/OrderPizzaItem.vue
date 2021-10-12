@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import ProductListItem from "../../../common/components/ProductListItem";
+import ProductListItem from "../../../common/components/AppProductListItem";
 import { getStringProductPrice } from "../../../common/utils/helpers/common";
 
 export default {

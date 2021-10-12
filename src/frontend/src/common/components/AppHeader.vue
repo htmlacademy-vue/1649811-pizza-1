@@ -43,9 +43,9 @@
 </template>
 
 <script>
-import { AppRoute } from "../common/const/common";
 import { mapGetters } from "vuex";
-import { logout } from "../common/mixins";
+import { logout } from "../mixins";
+import { AppRoute } from "../const/route";
 
 export default {
   mixins: [logout],

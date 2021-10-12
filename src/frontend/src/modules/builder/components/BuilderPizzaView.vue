@@ -3,16 +3,20 @@
     <slot name="pizzaName" />
 
     <div class="content__constructor">
-      <AppDrop @drop="addIngredient">
-        <div class="pizza" :class="pizzaFoundationClass">
-          <div class="pizza__wrapper">
+      <AppDrop
+        class="pizza"
+        :class="pizzaFoundationClass"
+        @drop="addIngredient"
+      >
+        <div class="pizza__wrapper">
+          <transition-group name="ingredients">
             <div
               v-for="ingredient in pizza.ingredients"
               class="pizza__filling"
               :key="ingredient.id"
               :class="getFillingClass(ingredient)"
             />
-          </div>
+          </transition-group>
         </div>
       </AppDrop>
     </div>
@@ -75,135 +79,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins/m_center.scss";
-
-.content__pizza {
-  width: 373px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+.ingredients-enter-active {
+  animation: bounce-in 0.5s;
 }
 
-.content__constructor {
-  width: 315px;
-  margin-top: 25px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.pizza {
-  position: relative;
-
-  display: block;
-
-  box-sizing: border-box;
-  width: 100%;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-
-  &--foundation--big-creamy {
-    background-image: url("~@/assets/img/foundation/big-creamy.svg");
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
   }
-
-  &--foundation--big-tomato {
-    background-image: url("~@/assets/img/foundation/big-tomato.svg");
+  50% {
+    transform: scale(1.2);
   }
-
-  &--foundation--small-creamy {
-    background-image: url("~@/assets/img/foundation/small-creamy.svg");
-  }
-
-  &--foundation--small-tomato {
-    background-image: url("~@/assets/img/foundation/small-tomato.svg");
-  }
-}
-
-.pizza__wrapper {
-  width: 100%;
-  padding-bottom: 100%;
-}
-
-.pizza__filling {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100%;
-
-  &--second {
-    transform: rotate(45deg);
-  }
-
-  &--third {
-    transform: rotate(-45deg);
-  }
-
-  &--ananas {
-    background-image: url("~@/assets/img/filling-big/ananas.svg");
-  }
-
-  &--bacon {
-    background-image: url("~@/assets/img/filling-big/bacon.svg");
-  }
-
-  &--blue_cheese {
-    background-image: url("~@/assets/img/filling-big/blue_cheese.svg");
-  }
-
-  &--cheddar {
-    background-image: url("~@/assets/img/filling-big/cheddar.svg");
-  }
-
-  &--chile {
-    background-image: url("~@/assets/img/filling-big/chile.svg");
-  }
-
-  &--ham {
-    background-image: url("~@/assets/img/filling-big/ham.svg");
-  }
-
-  &--jalapeno {
-    background-image: url("~@/assets/img/filling-big/jalapeno.svg");
-  }
-
-  &--mozzarella {
-    background-image: url("~@/assets/img/filling-big/mozzarella.svg");
-  }
-
-  &--mushrooms {
-    background-image: url("~@/assets/img/filling-big/mushrooms.svg");
-  }
-
-  &--olives {
-    background-image: url("~@/assets/img/filling-big/olives.svg");
-  }
-
-  &--onion {
-    background-image: url("~@/assets/img/filling-big/onion.svg");
-  }
-
-  &--parmesan {
-    background-image: url("~@/assets/img/filling-big/parmesan.svg");
-  }
-
-  &--salami {
-    background-image: url("~@/assets/img/filling-big/salami.svg");
-  }
-
-  &--salmon {
-    background-image: url("~@/assets/img/filling-big/salmon.svg");
-  }
-
-  &--tomatoes {
-    background-image: url("~@/assets/img/filling-big/tomatoes.svg");
+  100% {
+    transform: scale(1);
   }
 }
 </style>

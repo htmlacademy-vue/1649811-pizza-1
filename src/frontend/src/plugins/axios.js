@@ -9,8 +9,10 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (res) => res,
   (e) => {
-    axiosInstance.$notifier.error(Message.SERVER_ERROR);
-    console.error(e?.response?.data?.error?.message || Message.SERVER_ERROR);
+    axiosInstance.$notifier.error(
+      e?.response?.data?.error?.message || Message.SERVER_ERROR
+    );
+    console.error(e?.response?.data?.error);
     return Promise.reject(e);
   }
 );

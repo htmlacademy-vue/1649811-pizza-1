@@ -21,13 +21,12 @@
       </button>
     </div>
 
-    <template v-if="isShowPopup">
-      <Popup @close="handleClose" />
-    </template>
+    <transition name="modal">
+      <Popup v-if="isShowPopup" @close="handleClose" />
+    </transition>
   </section>
 </template>
 <script>
-import { AppRoute } from "../../../common/const/common";
 import { mapGetters, mapActions } from "vuex";
 import Popup from "../../../common/components/AppPopup";
 import { prepareOrder } from "../helpers/prepare-order";
@@ -35,6 +34,7 @@ import resources from "../../../common/enums/resources";
 import validator from "../../../common/mixins/validator";
 import { AddressValidations } from "../../../common/const/validation";
 import { getValidationErrorMessage } from "../../../common/utils/helpers/validation";
+import { AppRoute } from "../../../common/const/route";
 
 export default {
   name: "CartFooter",
@@ -98,13 +98,15 @@ export default {
     },
     async handleClose() {
       this.isShowPopup = false;
-
       const route = this.user ? AppRoute.ORDERS : AppRoute.MAIN;
-      await Promise.all([
-        this.$router.push(route),
-        this.clearCart(),
-        this.clearAddress(),
-      ]);
+
+      setTimeout(async () => {
+        await Promise.all([
+          this.$router.push(route),
+          this.clearCart(),
+          this.clearAddress(),
+        ]);
+      }, 100);
     },
   },
 };

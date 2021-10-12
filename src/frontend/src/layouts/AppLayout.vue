@@ -5,19 +5,14 @@
 </template>
 
 <script>
-import AppLayoutHeader from "./AppLayoutHeader";
-
-const defaultLayout = "AppLayoutDefault";
+import { LayoutName } from "../common/const/common";
 
 export default {
   computed: {
     layout() {
-      const layout = this.$route.meta.layout || defaultLayout;
+      const layout = this.$route.meta.layout || LayoutName.DEFAULT;
       return () => import(`./${layout}.vue`);
     },
-  },
-  components: {
-    AppLayoutHeader,
   },
 };
 </script>

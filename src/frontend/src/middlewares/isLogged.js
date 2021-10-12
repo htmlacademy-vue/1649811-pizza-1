@@ -1,4 +1,4 @@
-import { AppRoute } from "../common/const/common";
+import { AppRoute } from "../common/const/route";
 
 const isLogged = async ({ store, next, nextMiddleware }) => {
   if (store.$jwt.getToken()) {

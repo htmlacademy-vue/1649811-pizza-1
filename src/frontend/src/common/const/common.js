@@ -6,21 +6,6 @@ export const MESSAGE_LIVE_TIME = 3 * SEC;
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
 
-export const AppRoute = {
-  MAIN: "/",
-  CART: "/cart",
-  LOGIN: "/login",
-  LOGIN_INDEX: "login-index",
-  ORDERS: "/orders",
-  PROFILE: "/profile",
-};
-
-export const ApiRoute = {
-  LOGIN: "login",
-  LOGOUT: "logout",
-  WHO_AM_I: "whoAmI",
-};
-
 export const TOKEN_KEY = "token";
 
 export const Message = {
@@ -43,4 +28,15 @@ export const DefaultAddress = {
   building: "",
   flat: " ",
   comment: "",
+};
+
+export const Transition = {
+  SLIDE: "slide",
+  SLIDE_LOGIN: "login-slide",
+};
+
+export const LayoutName = {
+  DEFAULT: "AppLayoutDefault",
+  LOGIN: "AppLayoutLogin",
+  SIDE_BAR: "AppLayoutSideBar",
 };
