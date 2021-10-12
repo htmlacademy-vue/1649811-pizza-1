@@ -21,7 +21,7 @@
       </button>
     </div>
 
-    <transition name="popup">
+    <transition name="modal">
       <Popup v-if="isShowPopup" @close="handleClose" />
     </transition>
   </section>
@@ -111,17 +111,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.popup-enter-active {
-  transition: opacity 0.3s ease;
-}
-
-.popup-leave-active {
-  transition: opacity 0.5s ease;
-}
-.popup-enter,
-.popup-leave-to {
-  opacity: 0;
-}
-</style>

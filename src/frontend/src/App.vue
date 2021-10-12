@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <AppLayout>
-      <transition v-if="isShowTransition" name="slide" appear>
+      <transition v-if="isShowTransition" :name="transitionName" appear>
         <router-view />
       </transition>
       <router-view v-else />
@@ -11,10 +11,16 @@
 
 <script>
 import AppLayout from "./layouts/AppLayout";
+import { Transition } from "./common/const/common";
 
 export default {
   name: "App",
-
+  data() {
+    return {
+      isShowTransition: true,
+      transitionName: Transition.SLIDE,
+    };
+  },
   async mounted() {
     await Promise.all([
       this.$store.dispatch("init"),
@@ -24,27 +30,17 @@ export default {
   components: {
     AppLayout,
   },
-  methods: {
-    getRouteProps() {
-      return {
-        doughs: this.doughs,
-        sizes: this.sizes,
-        sauces: this.sauces,
-        ingredients: this.ingredients,
-      };
-    },
-  },
-  computed: {
-    routeProps() {
-      const routes = {
-        IndexHome: this.getRouteProps(),
-        LoginIndex: this.getRouteProps(),
-      };
-      return routes[this.$route.name] || {};
-    },
+  watch: {
+    $route(to, from) {
+      this.isShowTransition =
+        from.name === "LoginIndex"
+          ? false
+          : to.name !== "Profile" &&
+            to.name !== "Orders" &&
+            to.name !== "LoginIndex";
 
-    isShowTransition() {
-      return this.$route.name !== "Profile" && this.$route.name !== "Orders";
+      this.transitionName =
+        to.name === "Login" ? Transition.SLIDE_LOGIN : Transition.SLIDE;
     },
   },
 };

@@ -44,3 +44,8 @@ export const DefaultAddress = {
   flat: " ",
   comment: "",
 };
+
+export const Transition = {
+  SLIDE: "slide",
+  SLIDE_LOGIN: "login-slide",
+};

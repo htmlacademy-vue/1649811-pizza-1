@@ -23,7 +23,9 @@
         </BuilderPizzaView>
       </div>
     </form>
-    <router-view />
+    <transition appear name="modal">
+      <router-view />
+    </transition>
   </main>
 </template>
 

@@ -1,6 +1,8 @@
 <template>
   <Modal>
-    <Login />
+    <transition appear name="login-slide">
+      <Login />
+    </transition>
   </Modal>
 </template>
 <script>
