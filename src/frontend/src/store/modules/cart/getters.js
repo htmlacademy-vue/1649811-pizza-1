@@ -1,4 +1,4 @@
-import { calculateItemsPrice } from "../../../common/utils/helpers/calculate";
+import { calculateIngredientsPrice } from "../../../common/utils/helpers/calculate";
 import { Entity } from "./const";
 
 export default {
@@ -8,10 +8,10 @@ export default {
       : 0;
   },
   itemsPrice: (state) => {
-    return calculateItemsPrice(state[Entity.ITEMS]);
+    return calculateIngredientsPrice(state[Entity.ITEMS]);
   },
   additionalPrice: (state) => {
-    return calculateItemsPrice(state[Entity.ADDITIONAL]);
+    return calculateIngredientsPrice(state[Entity.ADDITIONAL]);
   },
   getItems: (state) => {
     return state[Entity.ITEMS];
