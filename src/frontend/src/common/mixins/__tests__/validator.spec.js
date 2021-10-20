@@ -4,41 +4,6 @@ import validator from "../validator";
 const Component = {
   render() {},
   mixins: [validator],
-  data() {
-    return {
-      validation: {
-        email: {
-          error: "",
-          rules: ["required", "email"],
-        },
-        password: {
-          error: "",
-          rules: ["isNotEmpty"],
-        },
-        notRules: {
-          rules: ["not-rules"],
-        },
-      },
-    };
-  },
-  props: {
-    email: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-  },
-  methods: {
-    validate() {
-      return this.$validateFields(
-        { email: this.email, password: this.password },
-        this.validation
-      );
-    },
-  },
 };
 
 enableAutoDestroy(afterEach);
@@ -46,121 +11,135 @@ enableAutoDestroy(afterEach);
 describe("Тест миксин $validator - $validateFields", () => {
   let wrapper;
 
-  test("Неверный формат адреса электронной почты", () => {
-    wrapper = shallowMount(Component, {
-      propsData: {
-        email: "email",
-        password: "password",
-      },
-    });
+  beforeEach(() => {
+    wrapper = shallowMount(Component);
+  });
 
-    const isVerify = wrapper.vm.validate();
+  test("Неверный формат адреса электронной почты", () => {
+    const validation = {
+      email: {
+        error: "",
+        rules: ["required", "email"],
+      },
+    };
+
+    const isVerify = wrapper.vm.$validateFields({ email: "email" }, validation);
 
     expect(isVerify).toBeFalsy();
-    expect(wrapper.vm.validation.email.error).toBe(
+    expect(validation.email.error).toBe(
       "электронная почта имеет неверный формат"
     );
   });
 
   test("Электронный адрес поле обязательно для заполнения", () => {
-    wrapper = shallowMount(Component, {
-      propsData: {
-        email: "",
-        password: "password",
+    const validation = {
+      email: {
+        error: "",
+        rules: ["required", "email"],
       },
-    });
+    };
 
-    const isVerify = wrapper.vm.validate();
+    const isVerify = wrapper.vm.$validateFields({ email: "" }, validation);
 
     expect(isVerify).toBeFalsy();
-    expect(wrapper.vm.validation.email.error).toBe(
-      "поле обязательно для заполнения"
-    );
+    expect(validation.email.error).toBe("поле обязательно для заполнения");
   });
 
   test("Электронный адрес все данные правильные", () => {
-    wrapper = shallowMount(Component, {
-      propsData: {
-        email: "test@example.com",
-        password: "password",
+    const validation = {
+      email: {
+        error: "",
+        rules: ["required", "email"],
       },
-    });
+    };
 
-    const isVerify = wrapper.vm.validate();
+    const isVerify = wrapper.vm.$validateFields(
+      { email: "email@example.com" },
+      validation
+    );
 
     expect(isVerify).toBeTruthy();
-    expect(wrapper.vm.validation.email.error).toBe("");
+    expect(validation.email.error).toBe("");
   });
 
   test("поле не заполнено", () => {
-    wrapper = shallowMount(Component, {
-      propsData: {
-        email: "test@example.com",
-        password: "",
+    const validation = {
+      password: {
+        error: "",
+        rules: ["isNotEmpty"],
       },
-    });
+    };
 
-    const isVerify = wrapper.vm.validate();
+    const isVerify = wrapper.vm.$validateFields({ password: "" }, validation);
 
     expect(isVerify).toBeFalsy();
-    expect(wrapper.vm.validation.password.error).toBe("поле не заполнено");
+    expect(validation.password.error).toBe("поле не заполнено");
   });
 
   test("для поля нет правила", () => {
-    wrapper = shallowMount(Component, {
-      propsData: {
-        email: "test@example.com",
-        password: "password",
+    const validation = {
+      password: {
+        error: "поле не заполнено",
+        rules: ["not-rule"],
       },
-    });
+    };
 
-    wrapper.vm.validate();
-    expect(wrapper.vm.validation.notRules.error).toBe("");
+    const isVerify = wrapper.vm.$validateFields(
+      { password: "123" },
+      validation
+    );
+
+    expect(isVerify).toBeTruthy();
+    expect(validation.password.error).toBe("");
   });
 });
 
 describe("Тест миксин $validator - $clearValidationErrors", () => {
   let wrapper;
 
-  const factory = (validation) => {
-    const Component = {
-      render() {},
-      mixins: [validator],
-      data() {
-        return {
-          validation,
-        };
-      },
-      methods: {
-        clearErrors() {
-          this.$clearValidationErrors(this.validation);
-        },
-      },
-    };
-
-    return shallowMount(Component);
-  };
+  beforeEach(() => {
+    wrapper = shallowMount(Component);
+  });
 
   test("Очищает ошибки", () => {
-    // wrapper = shallowMount(Component);
-    wrapper = factory({
+    const validation = {
       email: {
         error: "email error",
       },
       password: {
         error: "password error",
       },
-    });
-    wrapper.vm.clearErrors();
+    };
 
-    expect(wrapper.vm.validation.email.error).toBe("");
-    expect(wrapper.vm.validation.password.error).toBe("");
+    wrapper.vm.$clearValidationErrors(validation);
+
+    expect(validation.email.error).toBe("");
+    expect(validation.password.error).toBe("");
   });
 
   test("Ничего не делает", () => {
-    wrapper = factory();
-    wrapper.vm.clearErrors();
+    const validation = {
+      email: {
+        error: "",
+        rules: ["required", "email"],
+      },
+      password: {
+        error: "",
+        rules: ["required"],
+      },
+    };
 
-    expect(wrapper.vm.validation).toBeUndefined();
+    wrapper.vm.$clearValidationErrors(validation);
+
+    expect(validation).toStrictEqual({
+      email: {
+        error: "",
+        rules: ["required", "email"],
+      },
+      password: {
+        error: "",
+        rules: ["required"],
+      },
+    });
   });
 });
