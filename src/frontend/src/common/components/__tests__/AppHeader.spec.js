@@ -1,9 +1,4 @@
-import {
-  createLocalVue,
-  enableAutoDestroy,
-  mount,
-  shallowMount,
-} from "@vue/test-utils";
+import { createLocalVue, enableAutoDestroy, mount } from "@vue/test-utils";
 import Vuex from "vuex";
 import AppHeader from "../AppHeader";
 import VueRouter from "vue-router";
