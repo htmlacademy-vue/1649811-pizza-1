@@ -6,6 +6,7 @@ import {
   normalizeIngredient,
   normalizeSize,
 } from "../normalize";
+import { mockPizza1, mockPizza2 } from "../../../../static/mocks";
 
 describe("Тест prepareAdditional()", () => {
   test("Тест 1. Должен вернуть { additional: [], additionalPrice; 0 }", async () => {
@@ -118,41 +119,7 @@ describe("Тест preparePizza()", () => {
       sizes,
       ingredients
     );
-    expect(prepared).toStrictEqual({
-      name: "Pizza",
-      count: 2,
-      price: 383,
-      dough: {
-        id: 1,
-        name: "Тонкое",
-        image: "/public/img/dough-light.svg",
-        description: "Из твердых сортов пшеницы",
-        class: "dough__input dough__input--light",
-        price: 300,
-      },
-      sauce: {
-        id: 1,
-        name: "Томатный",
-        price: 50,
-      },
-      size: {
-        class: "diameter__input diameter__input--small",
-        id: 1,
-        image: "/public/img/diameter.svg",
-        multiplier: 1,
-        name: "23 см",
-      },
-      ingredients: [
-        {
-          class: "filling--mushrooms",
-          count: 1,
-          id: 1,
-          image: "/public/img/filling/mushrooms.svg",
-          name: "Грибы",
-          price: 33,
-        },
-      ],
-    });
+    expect(prepared).toStrictEqual(mockPizza1);
   });
 
   test("Должен вернуть пиццу {name: 'Pizza 2', price: 467}", async () => {
@@ -181,48 +148,6 @@ describe("Тест preparePizza()", () => {
       sizes,
       ingredients
     );
-    expect(prepared).toStrictEqual({
-      name: "Pizza 2",
-      count: 1,
-      price: 467,
-      dough: {
-        id: 1,
-        name: "Тонкое",
-        image: "/public/img/dough-light.svg",
-        description: "Из твердых сортов пшеницы",
-        class: "dough__input dough__input--light",
-        price: 300,
-      },
-      sauce: {
-        id: 1,
-        name: "Томатный",
-        price: 50,
-      },
-      size: {
-        class: "diameter__input diameter__input--small",
-        id: 1,
-        image: "/public/img/diameter.svg",
-        multiplier: 1,
-        name: "23 см",
-      },
-      ingredients: [
-        {
-          class: "filling--mushrooms",
-          count: 1,
-          id: 1,
-          image: "/public/img/filling/mushrooms.svg",
-          name: "Грибы",
-          price: 33,
-        },
-        {
-          class: "filling--cheddar",
-          id: 2,
-          count: 2,
-          name: "Чеддер",
-          image: "/public/img/filling/cheddar.svg",
-          price: 42,
-        },
-      ],
-    });
+    expect(prepared).toStrictEqual(mockPizza2);
   });
 });

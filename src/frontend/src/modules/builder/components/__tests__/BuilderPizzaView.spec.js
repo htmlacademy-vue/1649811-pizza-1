@@ -38,9 +38,6 @@ const factoryStore = (doughName, sauceName) => {
     },
   };
 };
-// const factory = (store) => {
-//   return shallowMount(BuilderPizzaView, { localVue, store, slots });
-// };
 
 const factory = (doughName = null, sauceName = null) => {
   const mockStore = factoryStore(doughName, sauceName);
@@ -55,8 +52,6 @@ describe("Компонент BuilderPizzaView", () => {
   let wrapper;
 
   test("Правильно отображает", async () => {
-    // const store = new Vuex.Store(factoryStore());
-    // wrapper = await factory(store);
     wrapper = factory();
 
     expect(wrapper.html()).toContain(slots.pizzaName);
@@ -69,8 +64,6 @@ describe("Компонент BuilderPizzaView. Метод getFillingClass", () =
   let wrapper;
 
   test("Должен вернуть 'pizza__filling--mushrooms'", () => {
-    // const store = new Vuex.Store(factoryStore());
-    // wrapper = factory(store);
     wrapper = factory();
 
     const ingredient = factoryIngredient(1);
@@ -80,8 +73,6 @@ describe("Компонент BuilderPizzaView. Метод getFillingClass", () =
   });
 
   test("Должен вернуть 'pizza__filling--mushrooms pizza__filling--second'", () => {
-    // const store = new Vuex.Store(factoryStore());
-    // wrapper = factory(store);
     wrapper = factory();
 
     const ingredient = factoryIngredient(2);
@@ -91,8 +82,6 @@ describe("Компонент BuilderPizzaView. Метод getFillingClass", () =
   });
 
   test("Должен вернуть 'pizza__filling--mushrooms pizza__filling--third'", () => {
-    // const store = new Vuex.Store(factoryStore());
-    // wrapper = factory(store);
     wrapper = factory();
 
     const ingredient = factoryIngredient(3);
@@ -106,8 +95,6 @@ describe("Компонент BuilderPizzaView. Метод addIngredient", () => 
   let wrapper;
 
   test("Должен вернуть 'pizza__filling--mushrooms'", () => {
-    // const store = new Vuex.Store(factoryStore());
-    // wrapper = factory(store);
     wrapper = factory();
 
     const ingredient = factoryIngredient(1);

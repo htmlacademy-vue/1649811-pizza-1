@@ -1,10 +1,5 @@
 <template>
-  <button
-    type="button"
-    class="cart-list__edit"
-    :data-id="id"
-    @click="handleButtonChangeClick"
-  >
+  <button type="button" class="cart-list__edit" @click="handleClick">
     Изменить
   </button>
 </template>
@@ -22,9 +17,8 @@ export default {
   },
   methods: {
     ...mapActions("cart", ["changePizza"]),
-    handleButtonChangeClick(event) {
-      const { id } = event.target.dataset;
-      this.changePizza(id);
+    handleClick() {
+      this.changePizza(this.id);
       this.$router.push(AppRoute.MAIN);
     },
   },

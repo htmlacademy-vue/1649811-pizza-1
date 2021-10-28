@@ -3,7 +3,6 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
-      :data-id="id"
       @click="handleDecrement"
       :disabled="isDisabled"
     >
@@ -14,13 +13,11 @@
       name="counter"
       class="counter__input"
       :value="count"
-      :data-id="id"
       @change="handleChange"
     />
     <button
       type="button"
       class="counter__button counter__button--plus counter__button--orange"
-      :data-id="id"
       @click="handleIncrement"
     >
       <span class="visually-hidden">Больше</span>
@@ -47,23 +44,18 @@ export default {
     },
   },
   methods: {
-    handleIncrement(event) {
-      const { id } = event.target.dataset;
-      this.$emit("increment", id);
+    handleIncrement() {
+      this.$emit("increment", this.id);
     },
 
-    handleDecrement(event) {
-      const { id } = event.target.dataset;
-      this.$emit("decrement", id);
+    handleDecrement() {
+      this.$emit("decrement", this.id);
     },
 
     handleChange(event) {
-      const {
-        dataset: { id },
-        value,
-      } = event.target;
+      const { value } = event.target;
       const count = parseInt(value, 10);
-      this.$emit("change", { id, count });
+      this.$emit("change", { id: this.id, count });
     },
   },
 };

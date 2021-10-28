@@ -142,4 +142,8 @@ describe("Тест миксин $validator - $clearValidationErrors", () => {
       },
     });
   });
+
+  test("Ничего не возвращает", () => {
+    expect(wrapper.vm.$clearValidationErrors(null)).toBeUndefined();
+  });
 });
