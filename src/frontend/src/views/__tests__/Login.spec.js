@@ -1,7 +1,9 @@
 import Login from "../Login";
 import { AppRoute } from "../../common/const/route";
 import VueRouter from "vue-router";
-import { createLocalVue, mount } from "@vue/test-utils";
+import { createLocalVue, enableAutoDestroy, mount } from "@vue/test-utils";
+
+enableAutoDestroy(afterEach);
 
 const user = {
   email: "test@example.com",
@@ -60,10 +62,6 @@ describe("view Login", () => {
     });
   });
 
-  afterEach(() => {
-    wrapper.destroy();
-  });
-
   test("Вызывает функцию login", async () => {
     wrapper.vm.login = jest.fn();
     await wrapper.find('button[type="submit"]').trigger("click");
@@ -76,6 +74,21 @@ describe("view Login", () => {
     await wrapper.find("form").trigger("submit");
 
     expect(spyValidateFields).toHaveBeenCalled();
+  });
+
+  test("Миксин проверки return undefined", async () => {
+    jest.spyOn(wrapper.vm, "$validateFields").mockImplementation(() => false);
+    const returnedValue = await wrapper.find("form").trigger("submit");
+
+    expect(returnedValue).toBeUndefined();
+  });
+
+  test("Не вызывает dispatch", async () => {
+    jest.spyOn(wrapper.vm, "$validateFields").mockImplementation(() => false);
+    await wrapper.find("form").trigger("submit");
+
+    expect(dispatch).not.toHaveBeenCalled();
+    expect(routerPush).not.toHaveBeenCalled();
   });
 
   test("Вызывает dispatch", async () => {

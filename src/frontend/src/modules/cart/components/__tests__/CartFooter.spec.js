@@ -130,12 +130,14 @@ describe("Компонент CartFooter. Метод handleClose", () => {
   });
 
   test("Вызывает $router.push c параметром / ", async () => {
+    jest.useFakeTimers();
+
     wrapper = factory();
     await wrapper.vm.handleClose();
 
-    setTimeout(() => {
-      expect(routerPush).toBeCalledWith(AppRoute.MAIN);
-    }, 200);
+    jest.runAllTimers();
+
+    expect(routerPush).toBeCalledWith(AppRoute.MAIN);
   });
 
   test("Вызывает $router.push c параметром /orders ", async () => {
