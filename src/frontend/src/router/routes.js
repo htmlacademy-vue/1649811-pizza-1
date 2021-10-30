@@ -34,10 +34,11 @@ export default [
   },
   {
     path: AppRoute.LOGIN,
-    component: {
-      render() {
-        return "Login";
-      },
+    name: RouteName.LOGIN,
+    component: Login,
+    meta: {
+      layout: LayoutName.LOGIN,
+      middlewares: [isLogged],
     },
   },
   {
