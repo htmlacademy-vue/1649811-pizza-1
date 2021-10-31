@@ -2,6 +2,7 @@ import {
   createLocalVue,
   enableAutoDestroy,
   shallowMount,
+  mount,
 } from "@vue/test-utils";
 import Vuex from "vuex";
 import Profile from "../Profile";
@@ -23,7 +24,7 @@ let loadUserAddresses;
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-const factory = (addresses = []) => {
+const factory = (addresses = [], isShallow = true) => {
   loadUserAddresses = jest.fn();
 
   const store = new Vuex.Store({
@@ -41,7 +42,9 @@ const factory = (addresses = []) => {
     },
   });
 
-  return shallowMount(Profile, { localVue, store });
+  return isShallow
+    ? shallowMount(Profile, { localVue, store })
+    : mount(Profile, { localVue, store });
 };
 
 describe("view Profile", () => {
@@ -88,22 +91,34 @@ describe("view Profile, метод addressToString", () => {
   });
 });
 
-describe("view Profile, метод setEditedAddress", () => {
+describe("view Profile, Кнопка редактирования адреса открывает форму", () => {
   let wrapper;
 
-  test("Вызывает setEditedAddress", async () => {
-    wrapper = factory(mockAddresses);
-    const spy = jest.spyOn(wrapper.vm, "setEditedAddress");
+  test("Отображает форму редактирования адреса 1", async () => {
+    wrapper = factory(mockAddresses, false);
+
     const button = wrapper.find("div.address-form__edit button.icon");
     await button.trigger("click");
 
-    expect(spy).toHaveBeenCalledWith(mockAddresses[0]);
+    const form = wrapper.find("form.address-form.address-form--opened.sheet");
+
+    expect(form.text()).toContain("Адрес 1");
+    expect(form.find('input[name="street"]').element.value).toBe("Street 1");
   });
 
-  test("Устанавливает editedAddressId 2", () => {
-    wrapper = factory();
-    wrapper.vm.setEditedAddress(mockAddresses[1]);
-    expect(wrapper.vm.editedAddressId).toBe(2);
+  test("Отображает форму редактирования адреса 2", async () => {
+    wrapper = factory(mockAddresses, false);
+
+    const button = wrapper
+      .findAll("div.address-form__edit")
+      .at(1)
+      .find("button.icon");
+    await button.trigger("click");
+
+    const form = wrapper.find("form.address-form.address-form--opened.sheet");
+
+    expect(form.text()).toContain("Адрес 2");
+    expect(form.find('input[name="street"]').element.value).toBe("Street 2");
   });
 });
 

@@ -163,18 +163,18 @@ describe("Компонент AppAddressForm. Новый адрес", () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
 
-  const store = storeFactory(user);
-
-  beforeEach(() => {
-    wrapper = shallowMount(AppAddressFrom, {
+  const factory = (user = null) => {
+    const store = storeFactory(user);
+    return shallowMount(AppAddressFrom, {
       localVue,
       propsData,
       store,
       mocks,
     });
-  });
+  };
 
   test("Должен вызвать $notifier.error, если заполнено только поле улица", async () => {
+    wrapper = factory(user);
     await wrapper.find('input[name="street"]').setValue("Test street");
     await wrapper.find('button[type="submit"]').trigger("click");
 
@@ -183,6 +183,8 @@ describe("Компонент AppAddressForm. Новый адрес", () => {
   });
 
   test("Должен вызвать $notifier.error, если не заполнено название", async () => {
+    wrapper = factory(user);
+
     await wrapper.find('input[name="name"]').setValue("");
     await wrapper.find('input[name="street"]').setValue("Test street");
     await wrapper.find('input[name="house"]').setValue("5");
@@ -192,15 +194,40 @@ describe("Компонент AppAddressForm. Новый адрес", () => {
     expect(api[resources.ADDRESSES].post).not.toBeCalled();
   });
 
-  test("Должен вызвать $api.address.post", async () => {
+  test("Должен вызвать $api.address.post с нужными параметрами (user установлен)", async () => {
+    wrapper = factory(user);
     await wrapper.find('input[name="street"]').setValue("Test street");
     await wrapper.find('input[name="house"]').setValue("5");
     await wrapper.find('button[type="submit"]').trigger("click");
 
-    expect(api[resources.ADDRESSES].post).toBeCalled();
+    expect(api[resources.ADDRESSES].post).toHaveBeenLastCalledWith({
+      street: "Test street",
+      building: "5",
+      flat: " ",
+      name: "Новый адрес",
+      userId: "uuid",
+      comment: "",
+    });
+  });
+
+  test("Должен вызвать $api.address.post с нужными параметрами (user не установлен)", async () => {
+    wrapper = factory();
+
+    await wrapper.find('input[name="street"]').setValue("Test street");
+    await wrapper.find('input[name="house"]').setValue("5");
+    await wrapper.find('button[type="submit"]').trigger("click");
+
+    expect(api[resources.ADDRESSES].post).toHaveBeenLastCalledWith({
+      street: "Test street",
+      building: "5",
+      flat: " ",
+      name: "Новый адрес",
+      comment: "",
+    });
   });
 
   test("Должен вызвать $emit.closeForm", async () => {
+    wrapper = factory();
     await wrapper.find('button[type="submit"]').trigger("click");
 
     expect(wrapper.emitted("closeForm"));

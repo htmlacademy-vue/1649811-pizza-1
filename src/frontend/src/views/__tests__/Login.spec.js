@@ -33,7 +33,7 @@ describe("view Login", () => {
   });
 });
 
-describe("view Login", () => {
+describe("view Login method login", () => {
   let routerPush;
   let dispatch;
   let wrapper;
@@ -78,20 +78,31 @@ describe("view Login", () => {
 
   test("Миксин проверки return undefined", async () => {
     jest.spyOn(wrapper.vm, "$validateFields").mockImplementation(() => false);
-    const returnedValue = await wrapper.find("form").trigger("submit");
+
+    const returnedValue = await wrapper.vm.login();
 
     expect(returnedValue).toBeUndefined();
   });
 
-  test("Не вызывает dispatch", async () => {
-    jest.spyOn(wrapper.vm, "$validateFields").mockImplementation(() => false);
+  test("Метод login, не вызывает dispatch. Введен не корректный email", async () => {
+    wrapper.find('input[type="email"]').setValue("email");
+    wrapper.find('input[type="password"]').setValue(user.password);
     await wrapper.find("form").trigger("submit");
 
     expect(dispatch).not.toHaveBeenCalled();
     expect(routerPush).not.toHaveBeenCalled();
   });
 
-  test("Вызывает dispatch", async () => {
+  test("Метод login, не вызывает dispatch. Введен пустой пароль", async () => {
+    wrapper.find('input[type="email"]').setValue(user.email);
+    wrapper.find('input[type="password"]').setValue("");
+    await wrapper.find("form").trigger("submit");
+
+    expect(dispatch).not.toHaveBeenCalled();
+    expect(routerPush).not.toHaveBeenCalled();
+  });
+
+  test("Вызывает dispatch. Введены корректные данные", async () => {
     wrapper.find('input[type="email"]').setValue(user.email);
     wrapper.find('input[type="password"]').setValue(user.password);
     await wrapper.find("form").trigger("submit");

@@ -1,8 +1,9 @@
 import { enableAutoDestroy, shallowMount } from "@vue/test-utils";
 import OrderAdditionalItem from "../OrderAdditionalItem";
+import { getStringProductPrice } from "../../../../common/utils/helpers/common";
 
 jest.mock("../../../../common/utils/helpers/common", () => ({
-  getStringProductPrice: () => "100",
+  getStringProductPrice: jest.fn(() => "100"),
 }));
 
 enableAutoDestroy(afterEach);
@@ -23,13 +24,16 @@ describe("Компонент OrderAdditionalItem", () => {
 
   test("Правильно отрисовывает имя", () => {
     wrapper = factory();
-
     expect(wrapper.html()).toContain("<span>Product</span>");
+  });
+
+  test("Вызывает getStringPrice с правильными аргументами", () => {
+    wrapper = factory();
+    expect(getStringProductPrice).toHaveBeenCalledWith(mockProduct);
   });
 
   test("Правильно отрисовывает цену", () => {
     wrapper = factory();
-
     expect(wrapper.text()).toContain("100 ₽");
   });
 });
