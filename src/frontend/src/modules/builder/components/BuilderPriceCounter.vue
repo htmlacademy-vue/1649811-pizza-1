@@ -34,7 +34,6 @@ export default {
   methods: {
     ...mapActions("cart", ["addPizza"]),
     ...mapActions("builder", { pizzaInit: "init" }),
-    ...mapActions(["createNotification"]),
     async addToCart() {
       await Promise.all([this.addPizza(), this.pizzaInit()]);
       this.$notifier.success(Message.PIZZA_ADD_CART);

@@ -1,4 +1,4 @@
-export const getIngredientImageName = (ingredient) => {
+const getIngredientImageName = (ingredient) => {
   const image = ingredient.image.split(`/`).pop();
   return image.split(`.`).reverse().pop();
 };
@@ -29,7 +29,7 @@ export const normalizeDough = (dough) => {
   };
 };
 
-export const getSizeClass = (size) => {
+const getSizeClass = (size) => {
   switch (size.name) {
     case "23 см":
       return "diameter__input diameter__input--small";

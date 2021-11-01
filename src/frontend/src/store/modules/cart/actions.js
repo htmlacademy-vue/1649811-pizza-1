@@ -115,7 +115,7 @@ export default {
   async decrementAdditional({ state, dispatch }, id) {
     const entity = Entity.ADDITIONAL;
     const item = findItem(state, entity, id);
-    if (item.count <= INGREDIENT_MIN_COUNT) {
+    if (!item || item.count <= INGREDIENT_MIN_COUNT) {
       return;
     }
     item.count--;

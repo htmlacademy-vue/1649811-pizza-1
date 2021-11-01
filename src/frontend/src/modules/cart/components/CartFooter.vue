@@ -76,6 +76,7 @@ export default {
 
       return true;
     },
+
     async handleSubmit() {
       const storedAddress = this.$store.state.orders.address;
       if (!this.validateAddress(storedAddress)) {
@@ -96,6 +97,7 @@ export default {
 
       this.isShowPopup = true;
     },
+
     async handleClose() {
       this.isShowPopup = false;
       const route = this.user ? AppRoute.ORDERS : AppRoute.MAIN;

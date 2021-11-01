@@ -1,7 +1,7 @@
 import { Entity } from "./const";
 import {
   calculatePrice,
-  calculateItemsPrice,
+  calculateIngredientsPrice,
 } from "../../../common/utils/helpers/calculate";
 
 export default {
@@ -13,13 +13,13 @@ export default {
   addedIngredients: (state) =>
     state[Entity.INGREDIENTS].filter((item) => item.count > 0) || [],
   ingredientsPrice: (state, getters) =>
-    calculateItemsPrice(getters.addedIngredients),
+    calculateIngredientsPrice(getters.addedIngredients),
   pizzaPrice: (state, getters) =>
     calculatePrice(
       state[Entity.CURRENT_DOUGH].price,
       state[Entity.CURRENT_SAUCE].price,
-      state[Entity.CURRENT_SIZE].multiplier,
-      getters.ingredientsPrice
+      getters.ingredientsPrice,
+      state[Entity.CURRENT_SIZE].multiplier
     ),
 
   pizza: (state, getters) => ({

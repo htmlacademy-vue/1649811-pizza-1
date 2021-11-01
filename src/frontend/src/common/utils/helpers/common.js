@@ -8,6 +8,6 @@ export const getStringProductPrice = (product) => {
 };
 
 export const printAddress = ({ street, building, flat }) => {
-  const flatString = flat.trim() ? `, кв. ${flat}` : "";
+  const flatString = flat?.trim() ? `, кв. ${flat}` : "";
   return `ул. ${street}, д. ${building}${flatString}`;
 };

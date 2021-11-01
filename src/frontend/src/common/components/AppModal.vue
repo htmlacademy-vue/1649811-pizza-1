@@ -6,6 +6,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: "AppModal",
+};
+</script>
+
 <style lang="scss" scoped>
 .modal-mask {
   position: fixed;

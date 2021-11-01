@@ -111,18 +111,13 @@ export default {
       user: "auth/getUser",
     }),
   },
-  watch: {
-    name() {
-      this.$clearValidationErrors(this.validations);
-    },
-    street() {
-      this.$clearValidationErrors(this.validations);
-    },
-    building() {
-      this.$clearValidationErrors(this.validations);
-    },
-  },
   methods: {
+    getAddress() {
+      return this.user
+        ? { ...this.editAddress, userId: this.user.id }
+        : this.editAddress;
+    },
+
     async submit() {
       if (
         !this.$validateFields(
@@ -149,25 +144,22 @@ export default {
           await this.$api[resources.ADDRESSES].put(this.editAddress);
           notify.status = "success";
           notify.message = Message.ADDRESS_EDIT_SUCCESS;
-        } catch (e) {
-          console.log(e);
-        }
+          // eslint-disable-next-line no-empty
+        } catch (e) {}
       } else {
         try {
-          const address = this.user
-            ? { ...this.editAddress, userId: this.user.id }
-            : this.editAddress;
+          const address = this.getAddress();
           await this.$api[resources.ADDRESSES].post(address);
           notify.status = "success";
           notify.message = Message.ADDRESS_ADD_SUCCESS;
-        } catch (e) {
-          console.log(e);
-        }
+          // eslint-disable-next-line no-empty
+        } catch (e) {}
       }
 
       this.$notifier[notify.status](notify.message);
       this.$emit("closeForm");
     },
+
     async remove() {
       if (this.address.id) {
         await this.$api[resources.ADDRESSES].delete(this.address.id);
