@@ -108,6 +108,7 @@ describe("view Login method login", () => {
     await wrapper.find("form").trigger("submit");
 
     expect(dispatch).toHaveBeenCalled();
+    expect(routerPush).toHaveBeenCalled();
   });
 
   test("Перенаправляет на главную страницу", async () => {

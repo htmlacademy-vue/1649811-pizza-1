@@ -1,11 +1,11 @@
 import {
   createLocalVue,
   enableAutoDestroy,
+  mount,
   shallowMount,
 } from "@vue/test-utils";
 import Vuex from "vuex";
 import BuilderPizzaName from "../BuilderPizzaName";
-import { render } from "@vue/server-test-utils";
 
 enableAutoDestroy(afterEach);
 
@@ -32,14 +32,14 @@ const store = new Vuex.Store(mockStore);
 describe("Компонент BuilderPizzaName", () => {
   let wrapper;
 
-  test("Правильно отрисовывает", async () => {
-    wrapper = await render(BuilderPizzaName, {
+  test("Правильно отрисовывает", () => {
+    wrapper = mount(BuilderPizzaName, {
       localVue,
       store,
     });
 
     expect(wrapper.text()).toContain("Название пиццы");
-    expect(wrapper.find("input").attr("value")).toBe("Test Pizza");
+    expect(wrapper.find("input").element.value).toBe("Test Pizza");
   });
 
   test("Вызывает setCount", async () => {

@@ -1,9 +1,9 @@
 import {
   createLocalVue,
   enableAutoDestroy,
+  mount,
   shallowMount,
 } from "@vue/test-utils";
-import { render } from "@vue/server-test-utils";
 import AppAddressFrom from "../AppAddressForm";
 import Vuex from "vuex";
 import user from "../../../static/user.json";
@@ -66,12 +66,9 @@ describe("Компонент AppAddressForm", () => {
       inputComment,
     };
   };
-  test("Отрисовывает форму с номером 1 и дефолтным адресом", async () => {
-    const wrapper = await render(AppAddressFrom, {
-      propsData: {
-        number: 1,
-      },
-    });
+  test("Отрисовывает форму с номером 1 и дефолтным адресом", () => {
+    const wrapper = mount(AppAddressFrom, { propsData: { number: 1 } });
+
     const {
       title,
       inputName,
@@ -82,15 +79,15 @@ describe("Компонент AppAddressForm", () => {
     } = findSelectors(wrapper);
 
     expect(title.text()).toBe("Адрес 1");
-    expect(inputName.attr("value")).toBe("Новый адрес");
-    expect(inputStreet.attr("value")).toBe("");
-    expect(inputHouse.attr("value")).toBe("");
-    expect(inputApartment.attr("value")).toBe(" ");
-    expect(inputComment.attr("value")).toBe("");
+    expect(inputName.element.value).toBe("Новый адрес");
+    expect(inputStreet.element.value).toBe("");
+    expect(inputHouse.element.value).toBe("");
+    expect(inputApartment.element.value).toBe(" ");
+    expect(inputComment.element.value).toBe("");
   });
 
-  test("Отрисовывает форму с номером 15 и адресом", async () => {
-    const wrapper = await render(AppAddressFrom, {
+  test("Отрисовывает форму с номером 15 и адресом", () => {
+    const wrapper = mount(AppAddressFrom, {
       propsData: {
         number: 10,
         address,
@@ -107,45 +104,11 @@ describe("Компонент AppAddressForm", () => {
     } = findSelectors(wrapper);
 
     expect(title.text()).toBe("Адрес 10");
-    expect(inputName.attr("value")).toBe(address.name);
-    expect(inputStreet.attr("value")).toBe(address.street);
-    expect(inputHouse.attr("value")).toBe(address.building);
-    expect(inputApartment.attr("value")).toBe(address.flat);
-    expect(inputComment.attr("value")).toBe(address.comment);
-  });
-});
-
-describe("Компонент AppAddressForm. Метод getAddress", () => {
-  const propsData = { number: 1, address: { ...address } };
-
-  const localVue = createLocalVue();
-  localVue.use(Vuex);
-
-  const factory = (store) => {
-    return shallowMount(AppAddressFrom, {
-      localVue,
-      propsData,
-      store,
-    });
-  };
-
-  test("Должен вернуть адрес с userId: uuid", async () => {
-    const store = storeFactory(user);
-    const wrapper = factory(store);
-
-    const returnedAddress = wrapper.vm.getAddress();
-    expect(returnedAddress).toStrictEqual({
-      ...address,
-      userId: "uuid",
-    });
-  });
-
-  test("Должен вернуть адрес без userId", async () => {
-    const store = storeFactory(null);
-    const wrapper = factory(store);
-
-    const returnedAddress = wrapper.vm.getAddress();
-    expect(returnedAddress).toStrictEqual(address);
+    expect(inputName.element.value).toBe(address.name);
+    expect(inputStreet.element.value).toBe(address.street);
+    expect(inputHouse.element.value).toBe(address.building);
+    expect(inputApartment.element.value).toBe(address.flat);
+    expect(inputComment.element.value).toBe(address.comment);
   });
 });
 
