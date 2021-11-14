@@ -144,16 +144,18 @@ export default {
           await this.$api[resources.ADDRESSES].put(this.editAddress);
           notify.status = "success";
           notify.message = Message.ADDRESS_EDIT_SUCCESS;
-          // eslint-disable-next-line no-empty
-        } catch (e) {}
+        } catch (e) {
+          console.log(e);
+        }
       } else {
         try {
           const address = this.getAddress();
           await this.$api[resources.ADDRESSES].post(address);
           notify.status = "success";
           notify.message = Message.ADDRESS_ADD_SUCCESS;
-          // eslint-disable-next-line no-empty
-        } catch (e) {}
+        } catch (e) {
+          console.log(e);
+        }
       }
 
       this.$notifier[notify.status](notify.message);

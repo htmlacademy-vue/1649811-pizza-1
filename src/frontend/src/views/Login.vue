@@ -78,8 +78,9 @@ export default {
           password: this.password,
         });
         await this.$router.push(AppRoute.MAIN);
-        // eslint-disable-next-line no-empty
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };
