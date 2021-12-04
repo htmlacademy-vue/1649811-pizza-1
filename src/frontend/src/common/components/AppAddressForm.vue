@@ -90,12 +90,6 @@ import { getValidationErrorMessage } from "../utils/helpers/validation";
 export default {
   name: "AddressForm",
   mixins: [validator],
-  data() {
-    return {
-      validations: { ...AddressValidations },
-      editAddress: { ...this.address },
-    };
-  },
   props: {
     address: {
       type: Object,
@@ -105,6 +99,12 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  data() {
+    return {
+      validations: { ...AddressValidations },
+      editAddress: { ...this.address },
+    };
   },
   computed: {
     ...mapGetters({

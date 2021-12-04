@@ -29,6 +29,12 @@ export default {
   components: {
     RadioButton,
   },
+  computed: {
+    ...mapGetters("builder", {
+      pizza: "pizza",
+      doughs: "doughs",
+    }),
+  },
   methods: {
     ...mapActions("builder", {
       setPizzaDough: "setDough",
@@ -36,12 +42,6 @@ export default {
     setDough(doughName) {
       this.setPizzaDough(doughName);
     },
-  },
-  computed: {
-    ...mapGetters("builder", {
-      pizza: "pizza",
-      doughs: "doughs",
-    }),
   },
 };
 </script>

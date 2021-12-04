@@ -36,6 +36,22 @@ const PIZZA_FILLING_THIRD = "pizza__filling--third";
 export default {
   name: "BuilderPizzaView",
   components: { AppDrop },
+  computed: {
+    ...mapGetters("builder", {
+      pizza: "pizza",
+    }),
+    pizzaFoundationClass: function () {
+      const {
+        dough: { name: doughName },
+        sauce: { name: sauceName },
+      } = this.pizza;
+
+      const size = doughName === "Толстое" ? "big" : "small";
+      const sauce = sauceName === "Томатный" ? "tomato" : "creamy";
+
+      return `${CLASS_FOUNDATION_PREFIX}--${size}-${sauce}`;
+    },
+  },
   methods: {
     ...mapActions("builder", {
       setIngredient: "setIngredient",
@@ -57,22 +73,6 @@ export default {
         case 3:
           return `${className} ${PIZZA_FILLING_THIRD}`;
       }
-    },
-  },
-  computed: {
-    ...mapGetters("builder", {
-      pizza: "pizza",
-    }),
-    pizzaFoundationClass: function () {
-      const {
-        dough: { name: doughName },
-        sauce: { name: sauceName },
-      } = this.pizza;
-
-      const size = doughName === "Толстое" ? "big" : "small";
-      const sauce = sauceName === "Томатный" ? "tomato" : "creamy";
-
-      return `${CLASS_FOUNDATION_PREFIX}--${size}-${sauce}`;
     },
   },
 };
