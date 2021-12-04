@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <AppLayout>
-      <transition v-if="isShowTransition" :name="transitionName" appear>
+      <transition
+        v-if="isShowTransition"
+        :name="transitionName"
+        appear
+      >
         <router-view />
       </transition>
       <router-view v-else />
@@ -16,15 +20,18 @@ import { Transition } from "./common/const/common";
 
 export default {
   name: "App",
+
   components: {
     AppLayout,
   },
+
   data() {
     return {
       isShowTransition: true,
       transitionName: Transition.SLIDE,
     };
   },
+
   watch: {
     $route(to, from) {
       this.isShowTransition =
@@ -36,6 +43,7 @@ export default {
         to.name === RouteName.LOGIN ? Transition.SLIDE_LOGIN : Transition.SLIDE;
     },
   },
+
   async mounted() {
     await Promise.all([
       this.$store.dispatch("init"),
@@ -47,7 +55,4 @@ export default {
 
 <style lang="scss">
 @import "~@/assets/scss/app";
-#app {
-  min-height: 100vh;
-}
 </style>

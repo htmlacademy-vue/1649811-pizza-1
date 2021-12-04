@@ -1,11 +1,15 @@
 <template>
-  <div v-if="notifications.length" class="notification__wrapper">
+  <div
+    v-if="notifications.length"
+    class="notification__wrapper"
+  >
     <div
       v-for="{ text, type, id } in notifications"
       :key="id"
       :class="`notification notification--${type}`"
     >
-      <p v-html="text"></p>
+      <!--      eslint-disable-next-line-->
+      <p v-html="text" />
     </div>
   </div>
 </template>
@@ -15,6 +19,7 @@ import { mapState } from "vuex";
 
 export default {
   name: "AppNotifications",
+
   computed: {
     ...mapState({
       notifications: "notifications",

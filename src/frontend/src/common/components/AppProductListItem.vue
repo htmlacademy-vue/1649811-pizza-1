@@ -6,7 +6,7 @@
       width="56"
       height="56"
       :alt="product.name"
-    />
+    >
     <div class="product__text">
       <h2>{{ product.name }}</h2>
       <ul>
@@ -21,12 +21,14 @@
 <script>
 export default {
   name: "AppProductListItem",
+
   props: {
     product: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     ingredients() {
       return this.product.ingredients

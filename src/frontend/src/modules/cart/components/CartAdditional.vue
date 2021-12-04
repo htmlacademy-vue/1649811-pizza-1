@@ -12,14 +12,14 @@
             width="39"
             height="60"
             :alt="product.name"
-          />
+          >
           <span>{{ product.name }}</span>
         </p>
 
         <div class="additional-list__wrapper">
           <CartButtonCounter
-            class="additional-list__counter"
             :id="product.id"
+            class="additional-list__counter"
             :count="product.count"
             @increment="increment"
             @decrement="decrement"
@@ -40,12 +40,15 @@ import CartButtonCounter from "./CartButtonCounter";
 
 export default {
   name: "CartAdditional",
+
   components: { CartButtonCounter },
+
   computed: {
     ...mapGetters("cart", {
       additional: "getAdditional",
     }),
   },
+
   methods: {
     ...mapActions("cart", {
       increment: "incrementAdditional",

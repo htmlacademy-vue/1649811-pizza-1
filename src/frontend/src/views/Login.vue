@@ -1,21 +1,30 @@
 <template>
   <div class="sign-form">
-    <router-link :to="AppRoute.MAIN" class="close close--white">
+    <router-link
+      :to="AppRoute.MAIN"
+      class="close close--white"
+    >
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </router-link>
     <div class="sign-form__title">
-      <h1 class="title title--small">Авторизуйтесь на сайте</h1>
+      <h1 class="title title--small">
+        Авторизуйтесь на сайте
+      </h1>
     </div>
-    <form action="#" method="post" @submit.prevent="login">
+    <form
+      action="#"
+      method="post"
+      @submit.prevent="login"
+    >
       <div class="sign-form__input">
         <label class="input">
           <span>E-mail</span>
           <input
+            v-model="email"
             type="email"
             name="email"
-            v-model="email"
             placeholder="example@mail.ru"
-          />
+          >
         </label>
       </div>
 
@@ -23,14 +32,19 @@
         <label class="input">
           <span>Пароль</span>
           <input
+            v-model="password"
             type="password"
             name="password"
-            v-model="password"
             placeholder="***********"
-          />
+          >
         </label>
       </div>
-      <button type="submit" class="button">Авторизоваться</button>
+      <button
+        type="submit"
+        class="button"
+      >
+        Авторизоваться
+      </button>
     </form>
   </div>
 </template>
@@ -43,6 +57,7 @@ import { AppRoute } from "../common/const/route";
 
 export default {
   mixins: [validator],
+
   data() {
     return {
       email: "",
@@ -51,14 +66,17 @@ export default {
       validations: { ...LoginValidations },
     };
   },
+
   watch: {
     email() {
       this.$clearValidationErrors(this.validations);
     },
+
     password() {
       this.$clearValidationErrors(this.validations);
     },
   },
+
   methods: {
     async login() {
       try {

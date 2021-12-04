@@ -18,11 +18,13 @@ import { Message } from "../../../common/const/common";
 
 export default {
   name: "BuilderPriceCounter",
+
   computed: {
     ...mapGetters("builder", {
       pizza: "pizza",
       addedIngredients: "addedIngredients",
     }),
+
     isDisabled() {
       return (
         !this.pizza.name.length ||
@@ -31,9 +33,11 @@ export default {
       );
     },
   },
+
   methods: {
     ...mapActions("cart", ["addPizza"]),
     ...mapActions("builder", { pizzaInit: "init" }),
+
     async addToCart() {
       await Promise.all([this.addPizza(), this.pizzaInit()]);
       this.$notifier.success(Message.PIZZA_ADD_CART);

@@ -5,11 +5,12 @@
     :value="value"
     :checked="checked"
     @change="handleChoice"
-  />
+  >
 </template>
 <script>
 export default {
   name: "AppRadioButton",
+
   props: {
     name: {
       type: String,
@@ -24,6 +25,7 @@ export default {
       default: false,
     },
   },
+
   methods: {
     handleChoice(event) {
       this.$emit("handleChoice", event.target.value);

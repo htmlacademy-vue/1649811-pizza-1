@@ -12,8 +12,8 @@
           <transition-group name="ingredients">
             <div
               v-for="ingredient in pizza.ingredients"
-              class="pizza__filling"
               :key="ingredient.id"
+              class="pizza__filling"
               :class="getFillingClass(ingredient)"
             />
           </transition-group>
@@ -35,7 +35,9 @@ const PIZZA_FILLING_THIRD = "pizza__filling--third";
 
 export default {
   name: "BuilderPizzaView",
+
   components: { AppDrop },
+
   computed: {
     ...mapGetters("builder", {
       pizza: "pizza",
@@ -52,10 +54,12 @@ export default {
       return `${CLASS_FOUNDATION_PREFIX}--${size}-${sauce}`;
     },
   },
+
   methods: {
     ...mapActions("builder", {
       setIngredient: "setIngredient",
     }),
+
     addIngredient(ingredient) {
       const ingredientId = ingredient.id;
       const count = ingredient.count + 1;

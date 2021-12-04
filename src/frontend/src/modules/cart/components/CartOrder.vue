@@ -4,8 +4,14 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select class="select" @change="handleSelectChange">
-          <option :selected="!address" value="null">Заберу сам</option>
+        <select
+          class="select"
+          @change="handleSelectChange"
+        >
+          <option
+            :selected="!address"
+            value="null"
+          >Заберу сам</option>
           <option value="0">Новый адрес</option>
           <option
             v-for="addressItem in addresses"
@@ -25,21 +31,24 @@
           name="tel"
           placeholder="+7 999-999-99-99"
           :value="phone"
-        />
+        >
       </label>
 
-      <div v-if="address" class="cart-form__address">
+      <div
+        v-if="address"
+        class="cart-form__address"
+      >
         <span class="cart-form__label">{{ address.name }}</span>
 
         <div class="cart-form__input">
           <label class="input">
             <span>Улица*</span>
             <input
+              v-model="address.street"
               type="text"
               name="street"
-              v-model="address.street"
               :disabled="!isNewAddress"
-            />
+            >
           </label>
         </div>
 
@@ -47,11 +56,11 @@
           <label class="input">
             <span>Дом*</span>
             <input
+              v-model="address.building"
               type="text"
               name="house"
-              v-model="address.building"
               :disabled="!isNewAddress"
-            />
+            >
           </label>
         </div>
 
@@ -59,11 +68,11 @@
           <label class="input">
             <span>Квартира</span>
             <input
+              v-model="address.flat"
               type="text"
               name="apartment"
-              v-model="address.flat"
               :disabled="!isNewAddress"
-            />
+            >
           </label>
         </div>
       </div>
@@ -76,29 +85,35 @@ import { DefaultAddress } from "../../../common/const/common";
 
 export default {
   name: "CartOrder",
+
   data() {
     return {
       isNewAddress: false,
       address: null,
     };
   },
+
   computed: {
     ...mapGetters({
       user: "auth/getUser",
       addresses: "auth/getUserAddresses",
     }),
+
     phone() {
       return this.user?.phone || null;
     },
   },
+
   watch: {
     address() {
       this.setAddress(this.address);
     },
   },
+
   created() {
     this.address = this.$store.getters["orders/getAddress"];
   },
+
   methods: {
     handleSelectChange(evt) {
       const { value } = evt.target;

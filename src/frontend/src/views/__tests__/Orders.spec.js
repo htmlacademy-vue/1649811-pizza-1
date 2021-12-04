@@ -62,9 +62,7 @@ describe("view Orders", () => {
 
   test("Отрисовывает, без истории заказов", async () => {
     wrapper = factory([], false);
-    expect(wrapper.html()).toContain(
-      '<h1 class="title title--big">История заказов</h1>'
-    );
+    expect(wrapper.find("h1").text()).toBe('История заказов')
   });
 
   test("Отрисовывает 2 заказа", async () => {

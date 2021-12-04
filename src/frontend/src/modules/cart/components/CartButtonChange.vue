@@ -1,5 +1,9 @@
 <template>
-  <button type="button" class="cart-list__edit" @click="handleClick">
+  <button
+    type="button"
+    class="cart-list__edit"
+    @click="handleClick"
+  >
     Изменить
   </button>
 </template>
@@ -9,14 +13,17 @@ import { AppRoute } from "../../../common/const/route";
 
 export default {
   name: "CartButtonChange",
+
   props: {
     id: {
       type: Number,
       required: true,
     },
   },
+
   methods: {
     ...mapActions("cart", ["changePizza"]),
+
     handleClick() {
       this.changePizza(this.id);
       this.$router.push(AppRoute.MAIN);

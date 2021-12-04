@@ -1,10 +1,16 @@
 <template>
   <div class="content__dough">
     <div class="sheet">
-      <h2 class="title title--small sheet__title">Выберите тесто</h2>
+      <h2 class="title title--small sheet__title">
+        Выберите тесто
+      </h2>
 
       <div class="sheet__content dough">
-        <label v-for="dough in doughs" :class="dough.class" :key="dough.id">
+        <label
+          v-for="dough in doughs"
+          :key="dough.id"
+          :class="dough.class"
+        >
           <RadioButton
             name="dough"
             class="visually-hidden"
@@ -26,19 +32,23 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "BuilderDoughSelector",
+
   components: {
     RadioButton,
   },
+
   computed: {
     ...mapGetters("builder", {
       pizza: "pizza",
       doughs: "doughs",
     }),
   },
+
   methods: {
     ...mapActions("builder", {
       setPizzaDough: "setDough",
     }),
+
     setDough(doughName) {
       this.setPizzaDough(doughName);
     },
