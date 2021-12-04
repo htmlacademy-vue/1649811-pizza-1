@@ -88,7 +88,7 @@ import { DefaultAddress, Message } from "../const/common";
 import { getValidationErrorMessage } from "../utils/helpers/validation";
 
 export default {
-  name: "AddressForm",
+  name: "AppAddressForm",
   mixins: [validator],
   props: {
     address: {

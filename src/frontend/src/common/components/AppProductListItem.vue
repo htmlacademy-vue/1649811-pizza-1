@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "ProductListItem",
+  name: "AppProductListItem",
   props: {
     product: {
       type: Object,

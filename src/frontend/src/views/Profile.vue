@@ -66,6 +66,7 @@ import AddressForm from "../common/components/AppAddressForm";
 import { AppRoute } from "../common/const/route";
 
 export default {
+  components: { AddressForm },
   data() {
     return {
       newAddressId: "new",
@@ -73,7 +74,6 @@ export default {
       editedAddressId: null,
     };
   },
-  components: { AddressForm },
   computed: {
     ...mapGetters({
       user: "auth/getUser",

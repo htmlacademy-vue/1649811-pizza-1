@@ -16,20 +16,14 @@ import { Transition } from "./common/const/common";
 
 export default {
   name: "App",
+  components: {
+    AppLayout,
+  },
   data() {
     return {
       isShowTransition: true,
       transitionName: Transition.SLIDE,
     };
-  },
-  async mounted() {
-    await Promise.all([
-      this.$store.dispatch("init"),
-      this.$store.dispatch("auth/setAuth"),
-    ]);
-  },
-  components: {
-    AppLayout,
   },
   watch: {
     $route(to, from) {
@@ -41,6 +35,12 @@ export default {
       this.transitionName =
         to.name === RouteName.LOGIN ? Transition.SLIDE_LOGIN : Transition.SLIDE;
     },
+  },
+  async mounted() {
+    await Promise.all([
+      this.$store.dispatch("init"),
+      this.$store.dispatch("auth/setAuth"),
+    ]);
   },
 };
 </script>

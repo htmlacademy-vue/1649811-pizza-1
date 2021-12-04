@@ -79,6 +79,11 @@ export default {
       }
     },
   },
+  async mounted() {
+    if (this.isDataLoaded) {
+      await this.loadOrders();
+    }
+  },
   methods: {
     ...mapActions({
       loadOrders: "orders/loadOrders",
@@ -93,11 +98,6 @@ export default {
       await this.loadOrderToCart(id);
       await this.$router.push(AppRoute.CART);
     },
-  },
-  async mounted() {
-    if (this.isDataLoaded) {
-      await this.loadOrders();
-    }
   },
 };
 </script>

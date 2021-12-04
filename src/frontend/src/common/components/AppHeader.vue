@@ -73,8 +73,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/scss/mixins/logo";
-//$loginImage: "~@/assets/img/login.svg";
 $loginImage: null;
 
 .disabled {
