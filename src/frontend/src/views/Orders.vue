@@ -1,10 +1,16 @@
 <template>
   <div class="layout__content">
     <div class="layout__title">
-      <h1 class="title title--big">История заказов</h1>
+      <h1 class="title title--big">
+        История заказов
+      </h1>
     </div>
 
-    <section v-for="order in orders" :key="order.id" class="sheet order">
+    <section
+      v-for="order in orders"
+      :key="order.id"
+      class="sheet order"
+    >
       <div class="order__wrapper">
         <div class="order__number">
           <b>Заказ #{{ order.id }}</b>
@@ -50,7 +56,10 @@
         />
       </ul>
 
-      <p v-if="order.address" class="order__address">
+      <p
+        v-if="order.address"
+        class="order__address"
+      >
         Адрес доставки: {{ printAddress(order.address) }}
       </p>
     </section>
@@ -66,12 +75,14 @@ import { AppRoute } from "../common/const/route";
 
 export default {
   components: { OrderAdditionalItem, OrderPizzaItem },
+
   computed: {
     ...mapGetters({
       orders: "orders/getOrders",
       isDataLoaded: "builder/isDataLoaded",
     }),
   },
+
   watch: {
     async isDataLoaded(newValue) {
       if (newValue) {
@@ -79,25 +90,30 @@ export default {
       }
     },
   },
+
+  async mounted() {
+    if (this.isDataLoaded) {
+      await this.loadOrders();
+    }
+  },
+
   methods: {
+    printAddress,
+
     ...mapActions({
       loadOrders: "orders/loadOrders",
       removeOrder: "orders/removeOrder",
       loadOrderToCart: "orders/loadOrderToCart",
     }),
-    printAddress,
+
     async handleOrderRemove(id) {
       await this.removeOrder(id);
     },
+
     async handleOrderRepeat(id) {
       await this.loadOrderToCart(id);
       await this.$router.push(AppRoute.CART);
     },
-  },
-  async mounted() {
-    if (this.isDataLoaded) {
-      await this.loadOrders();
-    }
   },
 };
 </script>

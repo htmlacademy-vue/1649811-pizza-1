@@ -3,8 +3,8 @@
     <button
       type="button"
       class="counter__button counter__button--minus"
-      @click="handleDecrement"
       :disabled="isDisabled"
+      @click="handleDecrement"
     >
       <span class="visually-hidden">Меньше</span>
     </button>
@@ -14,7 +14,7 @@
       class="counter__input"
       :value="count"
       @change="handleChange"
-    />
+    >
     <button
       type="button"
       class="counter__button counter__button--plus counter__button--orange"
@@ -29,6 +29,7 @@ import { INGREDIENT_MIN_COUNT } from "../../../common/const/common";
 
 export default {
   name: "CartButtonCounter",
+
   props: {
     count: {
       type: Number,
@@ -39,11 +40,13 @@ export default {
       required: true,
     },
   },
+
   computed: {
     isDisabled() {
       return this.count === INGREDIENT_MIN_COUNT;
     },
   },
+
   methods: {
     handleIncrement() {
       this.$emit("increment", this.id);

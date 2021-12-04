@@ -5,9 +5,9 @@
       type="text"
       name="pizza_name"
       placeholder="Введите название пиццы"
-      :value="this.pizza.name"
+      :value="pizza.name"
       @input="setName"
-    />
+    >
   </label>
 </template>
 <script>
@@ -15,16 +15,19 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "BuilderPizzaName",
+
   computed: {
     ...mapGetters("builder", {
       pizza: "pizza",
     }),
   },
+
   methods: {
     setName(event) {
       const name = event.target.value;
       this.setPizzaName(name);
     },
+
     ...mapActions("builder", {
       setPizzaName: "setName",
     }),

@@ -1,8 +1,13 @@
 <template>
   <li class="order__item">
-    <ProductListItem :product="pizza" class="product" />
+    <ProductListItem
+      :product="pizza"
+      class="product"
+    />
 
-    <p class="order__price">{{ getStringProductPrice(pizza) }} ₽</p>
+    <p class="order__price">
+      {{ getStringProductPrice(pizza) }} ₽
+    </p>
   </li>
 </template>
 
@@ -12,13 +17,16 @@ import { getStringProductPrice } from "../../../common/utils/helpers/common";
 
 export default {
   name: "OrderPizzaItem",
+
   components: { ProductListItem },
+
   props: {
     pizza: {
       type: Object,
       required: true,
     },
   },
+
   methods: { getStringProductPrice },
 };
 </script>

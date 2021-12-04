@@ -1,8 +1,14 @@
 <template>
   <li class="cart-list__item">
-    <ProductListItem :product="product" class="product cart-list__product" />
+    <ProductListItem
+      :product="product"
+      class="product cart-list__product"
+    />
 
-    <CartItemCounter :id="+product.id" :count="+product.count" />
+    <CartItemCounter
+      :id="+product.id"
+      :count="+product.count"
+    />
 
     <div class="cart-list__price">
       <b>{{ product.price * product.count }} ₽</b>
@@ -20,7 +26,9 @@ import ProductListItem from "../../../common/components/AppProductListItem";
 
 export default {
   name: "CartItem",
+
   components: { CartItemCounter, CartButtonChange, ProductListItem },
+
   props: {
     product: {
       type: Object,

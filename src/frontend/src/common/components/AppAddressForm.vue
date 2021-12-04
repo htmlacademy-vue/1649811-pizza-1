@@ -14,67 +14,77 @@
         <label class="input">
           <span>Название адреса*</span>
           <input
+            v-model="editAddress.name"
             type="text"
             name="name"
             placeholder="Введите название адреса"
-            v-model="editAddress.name"
             required
-          />
+          >
         </label>
       </div>
       <div class="address-form__input address-form__input--size--normal">
         <label class="input">
           <span>Улица*</span>
           <input
+            v-model="editAddress.street"
             type="text"
             name="street"
             placeholder="Введите название улицы"
-            v-model="editAddress.street"
             required
-          />
+          >
         </label>
       </div>
       <div class="address-form__input address-form__input--size--small">
         <label class="input">
           <span>Дом*</span>
           <input
+            v-model="editAddress.building"
             type="text"
             name="house"
             placeholder="Введите номер дома"
-            v-model="editAddress.building"
             required
-          />
+          >
         </label>
       </div>
       <div class="address-form__input address-form__input--size--small">
         <label class="input">
           <span>Квартира</span>
           <input
+            v-model="editAddress.flat"
             type="text"
             name="apartment"
             placeholder="Введите № квартиры"
-            v-model="editAddress.flat"
-          />
+          >
         </label>
       </div>
       <div class="address-form__input">
         <label class="input">
           <span>Комментарий</span>
           <input
+            v-model="editAddress.comment"
             type="text"
             name="comment"
             placeholder="Введите комментарий"
-            v-model="editAddress.comment"
-          />
+          >
         </label>
       </div>
     </div>
 
     <div class="address-form__buttons">
-      <button type="button" class="button button--transparent" @click="remove">
+      <button
+        type="button"
+        class="button button--transparent"
+        @click="remove"
+      >
         Удалить
       </button>
-      <button type="submit" class="button" @click="submit">Сохранить</button>
+      <button
+        type="submit"
+        class="button"
+        @click="submit"
+      >
+        Сохранить
+      </button>
     </div>
   </form>
 </template>
@@ -88,8 +98,10 @@ import { DefaultAddress, Message } from "../const/common";
 import { getValidationErrorMessage } from "../utils/helpers/validation";
 
 export default {
-  name: "AddressForm",
+  name: "AppAddressForm",
+
   mixins: [validator],
+
   props: {
     address: {
       type: Object,
@@ -100,17 +112,20 @@ export default {
       required: true,
     },
   },
+
   data() {
     return {
       validations: { ...AddressValidations },
       editAddress: { ...this.address },
     };
   },
+
   computed: {
     ...mapGetters({
       user: "auth/getUser",
     }),
   },
+
   methods: {
     getAddress() {
       return this.user

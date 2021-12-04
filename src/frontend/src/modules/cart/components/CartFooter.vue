@@ -9,20 +9,27 @@
       </router-link>
     </div>
     <p class="footer__text">
-      Перейти к конструктору<br />чтоб собрать ещё одну пиццу
+      Перейти к конструктору<br>чтоб собрать ещё одну пиццу
     </p>
     <div class="footer__price">
       <b>Итого: {{ cartPrice }} ₽</b>
     </div>
 
     <div class="footer__submit">
-      <button type="submit" class="button" @click.prevent="handleSubmit">
+      <button
+        type="submit"
+        class="button"
+        @click.prevent="handleSubmit"
+      >
         Оформить заказ
       </button>
     </div>
 
     <transition name="modal">
-      <Popup v-if="isShowPopup" @close="handleClose" />
+      <Popup
+        v-if="isShowPopup"
+        @close="handleClose"
+      />
     </transition>
   </section>
 </template>
@@ -38,29 +45,36 @@ import { AppRoute } from "../../../common/const/route";
 
 export default {
   name: "CartFooter",
+
   components: { Popup },
+
   mixins: [validator],
+
   data() {
     return {
       AppRoute,
       isShowPopup: false,
     };
   },
+
   computed: {
     ...mapGetters({
       cartPrice: "cart/price",
       user: "auth/getUser",
     }),
   },
+
   methods: {
     ...mapActions({
       clearCart: "cart/clearCart",
       clearAddress: "orders/clearAddress",
     }),
+
     validateAddress(address) {
       if (!address) {
         return true;
       }
+
       const validations = { ...AddressValidations };
       delete validations.name;
       if (

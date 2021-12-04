@@ -22,17 +22,21 @@ import { mapGetters, mapActions } from "vuex";
 import RadioButton from "../../../common/components/AppRadioButton";
 export default {
   name: "BuilderSauceSelector",
+
   components: { RadioButton },
+
   computed: {
     ...mapGetters("builder", {
       sauces: "sauces",
       pizza: "pizza",
     }),
   },
+
   methods: {
     setSauce(sauceName) {
       this.setPizzaSauce(sauceName);
     },
+
     ...mapActions("builder", {
       setPizzaSauce: "setSauce",
     }),

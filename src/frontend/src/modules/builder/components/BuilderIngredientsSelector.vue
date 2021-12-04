@@ -1,7 +1,9 @@
 <template>
   <div class="content__ingredients">
     <div class="sheet">
-      <h2 class="title title--small sheet__title">Выберите ингредиенты</h2>
+      <h2 class="title title--small sheet__title">
+        Выберите ингредиенты
+      </h2>
 
       <div class="sheet__content ingredients">
         <slot />
@@ -45,20 +47,25 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "BuilderIngredientsSelector",
+
   components: { ItemCounter, AppDrag },
+
   computed: {
     ...mapGetters("builder", {
       ingredients: "ingredients",
       pizza: "pizza",
     }),
   },
+
   methods: {
     ...mapActions("builder", {
       setIngredient: "setIngredient",
     }),
+
     setCount(ingredientId, count) {
       this.setIngredient({ ingredientId, count });
     },
+
     isDraggable(ingredient) {
       return ingredient.count < INGREDIENT_MAX_COUNT;
     },

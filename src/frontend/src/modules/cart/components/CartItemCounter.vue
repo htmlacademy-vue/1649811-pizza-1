@@ -1,7 +1,7 @@
 <template>
   <CartButtonCounter
-    class="cart-list__counter"
     :id="id"
+    class="cart-list__counter"
     :count="count"
     @increment="increment"
     @decrement="decrement"
@@ -14,7 +14,9 @@ import CartButtonCounter from "./CartButtonCounter";
 
 export default {
   name: "CartItemCounter",
+
   components: { CartButtonCounter },
+
   props: {
     count: {
       type: Number,
@@ -25,6 +27,7 @@ export default {
       required: true,
     },
   },
+
   methods: {
     ...mapActions("cart", {
       increment: "incrementItems",
