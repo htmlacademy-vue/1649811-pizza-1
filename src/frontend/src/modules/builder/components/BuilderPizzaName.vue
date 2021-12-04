@@ -14,6 +14,7 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
+  name: "BuilderPizzaName",
   computed: {
     ...mapGetters("builder", {
       pizza: "pizza",

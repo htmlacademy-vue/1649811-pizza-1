@@ -82,9 +82,6 @@ export default {
       address: null,
     };
   },
-  created() {
-    this.address = this.$store.getters["orders/getAddress"];
-  },
   computed: {
     ...mapGetters({
       user: "auth/getUser",
@@ -98,6 +95,9 @@ export default {
     address() {
       this.setAddress(this.address);
     },
+  },
+  created() {
+    this.address = this.$store.getters["orders/getAddress"];
   },
   methods: {
     handleSelectChange(evt) {

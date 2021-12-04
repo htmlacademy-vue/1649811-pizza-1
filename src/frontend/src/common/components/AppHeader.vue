@@ -48,6 +48,7 @@ import { logout } from "../mixins";
 import { AppRoute } from "../const/route";
 
 export default {
+  name: "AppHeader",
   mixins: [logout],
   data() {
     return {

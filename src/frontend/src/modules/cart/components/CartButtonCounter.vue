@@ -28,6 +28,7 @@
 import { INGREDIENT_MIN_COUNT } from "../../../common/const/common";
 
 export default {
+  name: "CartButtonCounter",
   props: {
     count: {
       type: Number,

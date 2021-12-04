@@ -38,14 +38,14 @@ import { AppRoute } from "../../../common/const/route";
 
 export default {
   name: "CartFooter",
+  components: { Popup },
+  mixins: [validator],
   data() {
     return {
       AppRoute,
       isShowPopup: false,
     };
   },
-  mixins: [validator],
-  components: { Popup },
   computed: {
     ...mapGetters({
       cartPrice: "cart/price",

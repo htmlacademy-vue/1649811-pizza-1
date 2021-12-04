@@ -8,6 +8,7 @@
 import { LayoutName } from "../common/const/common";
 
 export default {
+  name: "AppLayout",
   computed: {
     layout() {
       const layout = this.$route.meta.layout || LayoutName.DEFAULT;
